@@ -13,3 +13,7 @@ answers:
       unsupported: true
       reason: Doltgres does not implement row locking yet. Every FOR UPDATE fails with an error.
       tracked_by: "#3625"
+  query.contract:
+    index_never_changes_results: supported
+    not_exists_over_nullable_foreign_key: supported
+    exists_over_nullable_indexed_columns: supported

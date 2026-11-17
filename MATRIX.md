@@ -12,7 +12,7 @@ Exempt cells are excused by a passing proof. Regenerate with `temper matrix`.
 
 | covered | exempt | failing | missing | unenforced |
 | ---: | ---: | ---: | ---: | ---: |
-| 9 | 0 | 6 | 0 | 1 |
+| 13 | 0 | 8 | 0 | 1 |
 
 ## Features
 
@@ -22,6 +22,16 @@ Exempt cells are excused by a passing proof. Regenerate with `temper matrix`.
 | `server.doltgres` | Doltgres 1.5.1, which reports transaction_isolation = read committed. | ❌ |
 
 ## Lattices
+
+### `query.contract`
+
+Ordinary queries return PostgreSQL's rows. An index changes how a query runs, never what it returns. Both servers sort text in C order, so collation plays no part.
+
+| Member | `server.doltgres` | `server.postgres` |
+| --- | --- | --- |
+| `index_never_changes_results` | ✅ | ✅ |
+| `not_exists_over_nullable_foreign_key` | ❌ | ✅ |
+| `exists_over_nullable_indexed_columns` | ❌ | ✅ |
 
 ### `txn.contract`
 

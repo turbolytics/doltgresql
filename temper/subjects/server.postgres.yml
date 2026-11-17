@@ -10,3 +10,7 @@ answers:
     concurrent_transfers_keep_the_total: supported
     unique_key_holds_under_concurrent_inserts: supported
     select_for_update_serializes: supported
+  query.contract:
+    index_never_changes_results: supported
+    not_exists_over_nullable_foreign_key: supported
+    exists_over_nullable_indexed_columns: supported

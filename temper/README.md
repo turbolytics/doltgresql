@@ -1,14 +1,16 @@
-# Doltgres concurrency map
+# Doltgres map
 
 [Temper](https://github.com/turbolytics/temper) map of what PostgreSQL
-guarantees to concurrent transactions, checked against PostgreSQL 17 and
-Doltgres 1.5.1. `MATRIX.md` at the repository root is the result.
+guarantees to concurrent transactions and to ordinary queries, checked against
+PostgreSQL 17 and Doltgres 1.5.1. `MATRIX.md` at the repository root is the result.
 
 - `lattices/txn.contract.yml`: the guarantees. A write that reports success is
   never lost. A server may refuse a write with an error, such as `40001`.
+- `lattices/query.contract.yml`: ordinary queries return PostgreSQL's rows, and
+  an index never changes a result.
 - `subjects/`: one file per server. Doltgres's row locking is a known gap
   (#3625).
-- `../testing/temper/test_concurrency.py`: the tests. Each one states what it
+- `../testing/temper/`: the tests. Each one states what it
   proves with `@pytest.mark.covers`.
 
 Run it:

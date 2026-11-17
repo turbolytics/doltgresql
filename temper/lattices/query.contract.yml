@@ -1,0 +1,16 @@
+id: query.contract
+description: >
+  Ordinary queries return PostgreSQL's rows. An index changes how a query runs,
+  never what it returns. Both servers sort text in C order, so collation plays
+  no part.
+applies_to: server
+requires: [ci]
+members:
+  # About 150 lookups, ranges, IN lists, ORDER BY ... LIMIT, aggregates and joins,
+  # over 2,000 rows with NULLs, on one copy of the table per index type.
+  # EXISTS and NOT EXISTS are the two members below.
+  - key: index_never_changes_results
+  # "Users with no tasks": NOT EXISTS over an indexed, nullable foreign key.
+  - key: not_exists_over_nullable_foreign_key
+  # EXISTS and NOT EXISTS joining two indexed columns that hold a NULL.
+  - key: exists_over_nullable_indexed_columns
