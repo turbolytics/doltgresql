@@ -1,0 +1,8 @@
+# The servers this map compares. PostgreSQL is the reference.
+features:
+  - id: server.postgres
+    description: "PostgreSQL 17, the reference."
+    requires: [ci]
+  - id: server.doltgres
+    description: "Doltgres 1.5.1, which reports transaction_isolation = read committed."
+    requires: [ci]

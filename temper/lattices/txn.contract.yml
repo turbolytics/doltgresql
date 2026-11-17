@@ -1,0 +1,22 @@
+id: txn.contract
+description: >
+  What PostgreSQL guarantees to concurrent transactions. A write that reports
+  success is never lost. A server may refuse a write with an error such as
+  40001, but it must not report success and then drop it.
+applies_to: server
+requires: [ci]
+members:
+  # Two transactions each run UPDATE n = n + 1 and both commit: n ends at 2.
+  - key: two_committed_increments_both_count
+  # 8 clients run UPDATE n = n + 1 in autocommit: n equals the successful updates.
+  - key: concurrent_updates_lose_nothing_autocommit
+  # The same, each update in its own transaction.
+  - key: concurrent_updates_lose_nothing_in_transactions
+  # 8 clients run INSERT ... ON CONFLICT DO UPDATE SET n = n + 1 (#3617).
+  - key: concurrent_upserts_lose_nothing
+  # 8 clients move money between accounts in transactions: the total never changes.
+  - key: concurrent_transfers_keep_the_total
+  # 8 clients insert the same keys with ON CONFLICT DO NOTHING: each key is stored once.
+  - key: unique_key_holds_under_concurrent_inserts
+  # SELECT ... FOR UPDATE makes concurrent read-modify-write transactions serialize.
+  - key: select_for_update_serializes

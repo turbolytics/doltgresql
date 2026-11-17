@@ -26,3 +26,7 @@ scripts/mini_sysbench
 # ignore doltgres db created
 doltgres
 auth.db
+
+# Temper evidence and venv
+/.temper/
+/.venv-temper/

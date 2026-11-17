@@ -1,0 +1,6 @@
+temper: "0.1"
+project: doltgresql
+
+levels:
+  - name: ci
+    description: pytest against PostgreSQL 17 and Doltgres 1.5.1 in Docker

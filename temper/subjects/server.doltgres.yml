@@ -1,0 +1,15 @@
+id: server.doltgres
+kind: server
+feature: server.doltgres
+answers:
+  txn.contract:
+    two_committed_increments_both_count: supported
+    concurrent_updates_lose_nothing_autocommit: supported
+    concurrent_updates_lose_nothing_in_transactions: supported
+    concurrent_upserts_lose_nothing: supported
+    concurrent_transfers_keep_the_total: supported
+    unique_key_holds_under_concurrent_inserts: supported
+    select_for_update_serializes:
+      unsupported: true
+      reason: Doltgres does not implement row locking yet. Every FOR UPDATE fails with an error.
+      tracked_by: "#3625"
