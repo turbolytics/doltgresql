@@ -191,8 +191,8 @@ def test_not_exists_over_nullable_foreign_key(name):
         for s in [
             "drop table if exists tasks", "drop table if exists users",
             "create table users (id int primary key, name text not null)",
+            # No CREATE INDEX: Doltgres indexes every foreign key column on its own.
             "create table tasks (id int primary key, title text not null, assignee_id int references users (id))",
-            "create index tasks_assignee_id on tasks (assignee_id)",
             "insert into users values (1, 'ana'), (2, 'bo'), (3, 'cy')",
             "insert into tasks values (10, 'write spec', 1), (11, 'review', 2), (12, 'triage', null), (13, 'deploy', 1)",
         ]:
