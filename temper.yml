@@ -1,0 +1,22 @@
+temper: "0.1"
+project: doltgresql
+
+# An audit of Doltgres's full surface, from what its users need it for.
+# temper/README.md has the inventory: 15 functional groups, the lattices
+# from Doltgres's support pages, and the invariants, each approved before
+# any test was written.
+levels:
+  - name: conformance
+    description: One client. The same statements on the same data return what PostgreSQL 17 returns.
+  - name: concurrency
+    description: Many clients, nothing failing. Each isolation level prevents the anomalies it should.
+  - name: versioning
+    description: Dolt's model in SQL. Commits, branches, merges, history and remotes do what Dolt's docs say.
+  - name: faults
+    description: Kills, restarts, a slow or cut network, on the operations chosen for fault analysis.
+  - name: compatibility
+    description: Real clients and tools. Every documented driver, the catalog, and pg_dump.
+  - name: security
+    description: Roles, grants and branch permissions.
+  - name: operations
+    description: Running it over time. Replication, backup and restore, garbage collection, upgrades.

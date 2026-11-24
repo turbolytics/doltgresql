@@ -1,0 +1,555 @@
+# Doltgres's full surface, from what its users need it for: 15 functional
+# groups, every operation a feature, approved before any test. The level
+# list after an operation says where it must be proven; `faults` marks the
+# operations chosen for fault analysis.
+features:
+  # Run the server (reference/sql/server)
+  - id: server.start
+    description: The first start creates the superuser and the postgres database, then accepts connections.
+    requires: [operations, faults]
+  - id: server.config.file
+    description: A config.yaml sets the data directory, listener, users and behavior.
+    requires: [operations]
+  - id: server.config.env
+    description: DOLTGRES_USER, DOLTGRES_PASSWORD and DOLTGRES_DATA_DIR configure a first start.
+    requires: [operations]
+  - id: server.docker
+    description: The dolthub/doltgresql image runs the server with its documented environment.
+    requires: [operations]
+  - id: server.database.create
+    description: CREATE DATABASE makes a new database, each its own Dolt repository.
+    requires: [conformance]
+  - id: server.database.drop
+    description: DROP DATABASE removes a database.
+    requires: [conformance]
+  - id: server.restart
+    description: A clean restart keeps every committed change.
+    requires: [operations, faults]
+  - id: server.gc
+    description: dolt_gc() reclaims unreferenced storage.
+    requires: [operations, faults]
+  - id: server.metrics
+    description: The server exports the metrics its docs list.
+    requires: [operations]
+  # Connect from apps (reference/sql/supported-clients)
+  - id: client.connect
+    description: A client connects over the PostgreSQL wire protocol with password authentication.
+    requires: [compatibility, faults]
+  - id: client.query.simple
+    description: The simple query protocol runs statements and returns rows.
+    requires: [compatibility, faults]
+  - id: client.query.extended
+    description: The extended protocol prepares, binds and executes statements.
+    requires: [compatibility, faults]
+  - id: client.bind.typed
+    description: Bind parameters with declared types are read as those types.
+    requires: [compatibility]
+  - id: client.bind.untyped
+    description: Untyped bind parameters are inferred as PostgreSQL infers them.
+    requires: [compatibility]
+  - id: client.bind.binary
+    description: Parameters and results in binary format round-trip.
+    requires: [compatibility]
+  - id: client.copy.from
+    description: COPY ... FROM STDIN loads rows.
+    requires: [compatibility]
+  - id: client.copy.to
+    description: COPY ... TO STDOUT writes rows.
+    requires: [compatibility]
+  - id: client.error.fields
+    description: An error carries its SQLSTATE and the schema, table, column and constraint fields.
+    requires: [compatibility]
+  # Define and change schema (concepts/sql)
+  - id: schema.database
+    description: Databases are created, listed and dropped.
+    requires: [conformance]
+  - id: schema.schema
+    description: Schemas are created, used on the search_path and dropped.
+    requires: [conformance]
+  - id: schema.table.create
+    description: CREATE TABLE makes a table with its columns and constraints.
+    requires: [conformance]
+  - id: schema.table.create_as
+    description: CREATE TABLE AS makes a table from a query.
+    requires: [conformance]
+  - id: schema.table.alter.column
+    description: ALTER TABLE adds, drops, renames and retypes columns, and sets defaults.
+    requires: [conformance]
+  - id: schema.table.alter.constraint
+    description: ALTER TABLE adds and drops constraints.
+    requires: [conformance]
+  - id: schema.table.drop
+    description: DROP TABLE removes a table, with CASCADE and RESTRICT.
+    requires: [conformance]
+  - id: schema.table.truncate
+    description: TRUNCATE empties a table.
+    requires: [conformance]
+  - id: schema.column.default
+    description: Column defaults, including expressions and function calls.
+    requires: [conformance]
+  - id: schema.column.generated
+    description: Generated columns compute their value from other columns.
+    requires: [conformance]
+  - id: schema.column.identity
+    description: Identity columns generate keys.
+    requires: [conformance]
+  - id: schema.constraint.primary_key
+    description: Primary keys.
+    requires: [conformance]
+  - id: schema.constraint.foreign_key
+    description: Foreign keys, with their ON DELETE and ON UPDATE actions.
+    requires: [conformance]
+  - id: schema.constraint.unique
+    description: Unique constraints, including NULLS NOT DISTINCT.
+    requires: [conformance]
+  - id: schema.constraint.check
+    description: CHECK constraints.
+    requires: [conformance]
+  - id: schema.constraint.not_null
+    description: NOT NULL constraints.
+    requires: [conformance]
+  - id: schema.index.btree
+    description: B-tree indexes on one or more columns.
+    requires: [conformance]
+  - id: schema.index.partial
+    description: Partial indexes (CREATE INDEX ... WHERE).
+    requires: [conformance]
+  - id: schema.index.expression
+    description: Indexes on expressions.
+    requires: [conformance]
+  - id: schema.index.drop
+    description: DROP INDEX.
+    requires: [conformance]
+  - id: schema.sequence
+    description: 'Sequences: create, alter, drop, nextval, currval and setval.'
+    requires: [conformance]
+  - id: schema.view
+    description: 'Views: create, query and drop.'
+    requires: [conformance]
+  - id: schema.domain
+    description: Domains with their constraints.
+    requires: [conformance]
+  - id: schema.type
+    description: User-defined enum and composite types.
+    requires: [conformance]
+  - id: schema.cast
+    description: User-defined casts.
+    requires: [conformance]
+  - id: schema.trigger
+    description: Triggers on INSERT, UPDATE and DELETE, row and statement level.
+    requires: [conformance]
+  - id: schema.function
+    description: User-defined functions in SQL and PL/pgSQL.
+    requires: [conformance]
+  - id: schema.procedure
+    description: Procedures, called with CALL.
+    requires: [conformance]
+  - id: schema.extension
+    description: CREATE EXTENSION for the extensions Doltgres ships.
+    requires: [conformance]
+  - id: schema.comment
+    description: COMMENT ON objects.
+    requires: [conformance]
+  # Read and write data (reference/sql-support)
+  - id: query.select.filter
+    description: SELECT with WHERE, ORDER BY, LIMIT and OFFSET.
+    requires: [conformance]
+  - id: query.select.join
+    description: Inner, left, right, full and cross joins.
+    requires: [conformance]
+  - id: query.select.subquery
+    description: Scalar, IN, EXISTS and NOT EXISTS subqueries, correlated or not.
+    requires: [conformance]
+  - id: query.select.cte
+    description: Common table expressions, including recursive ones.
+    requires: [conformance]
+  - id: query.select.aggregate
+    description: Aggregates with GROUP BY and HAVING.
+    requires: [conformance]
+  - id: query.select.window
+    description: Window functions with their frames.
+    requires: [conformance]
+  - id: query.select.set_ops
+    description: UNION, INTERSECT and EXCEPT.
+    requires: [conformance]
+  - id: query.select.distinct
+    description: DISTINCT and DISTINCT ON.
+    requires: [conformance]
+  - id: query.values
+    description: VALUES lists.
+    requires: [conformance]
+  - id: query.insert
+    description: INSERT of literal rows.
+    requires: [conformance, faults]
+  - id: query.insert.select
+    description: INSERT ... SELECT.
+    requires: [conformance]
+  - id: query.update
+    description: UPDATE.
+    requires: [conformance, faults]
+  - id: query.update.from
+    description: UPDATE ... FROM.
+    requires: [conformance]
+  - id: query.delete
+    description: DELETE.
+    requires: [conformance]
+  - id: query.delete.using
+    description: DELETE ... USING.
+    requires: [conformance]
+  - id: query.upsert.nothing
+    description: INSERT ... ON CONFLICT DO NOTHING.
+    requires: [conformance]
+  - id: query.upsert.update
+    description: INSERT ... ON CONFLICT DO UPDATE.
+    requires: [conformance, faults]
+  - id: query.upsert.where
+    description: INSERT ... ON CONFLICT DO UPDATE ... WHERE.
+    requires: [conformance]
+  - id: query.returning
+    description: RETURNING on INSERT, UPDATE and DELETE.
+    requires: [conformance]
+  - id: query.explain
+    description: EXPLAIN shows a plan.
+    requires: [conformance]
+  # Concurrent transactions (concepts/sql/transaction)
+  - id: txn.commit
+    description: BEGIN ... COMMIT makes a transaction's writes durable and visible together.
+    requires: [conformance, concurrency, faults]
+  - id: txn.rollback
+    description: ROLLBACK discards a transaction's writes.
+    requires: [conformance, concurrency]
+  - id: txn.savepoint
+    description: SAVEPOINT, RELEASE SAVEPOINT and ROLLBACK TO SAVEPOINT.
+    requires: [conformance]
+  - id: txn.isolation.set
+    description: SET TRANSACTION and BEGIN ISOLATION LEVEL choose a level.
+    requires: [conformance, concurrency]
+  - id: txn.row_lock
+    description: SELECT ... FOR UPDATE and FOR SHARE lock rows.
+    requires: [concurrency]
+  - id: txn.table_lock
+    description: LOCK TABLE.
+    requires: [concurrency]
+  - id: txn.abort_on_error
+    description: A failed statement aborts its transaction until ROLLBACK.
+    requires: [conformance]
+  - id: txn.serialization_failure
+    description: A conflicting commit fails with 40001, and the client can retry it.
+    requires: [concurrency]
+  # Control access (reference/sql/server/access-management, branch-permissions)
+  - id: access.role
+    description: CREATE, ALTER and DROP ROLE.
+    requires: [security]
+  - id: access.user
+    description: CREATE, ALTER and DROP USER.
+    requires: [security]
+  - id: access.group
+    description: CREATE, ALTER and DROP GROUP, and membership.
+    requires: [security]
+  - id: access.password
+    description: Passwords are set and checked.
+    requires: [security]
+  - id: access.superuser.bootstrap
+    description: The superuser from the first start's environment or config.
+    requires: [security]
+  - id: access.grant.table
+    description: GRANT and REVOKE on tables.
+    requires: [security]
+  - id: access.grant.schema
+    description: GRANT and REVOKE on schemas.
+    requires: [security]
+  - id: access.grant.routine
+    description: GRANT and REVOKE on functions and procedures.
+    requires: [security]
+  - id: access.grant.database
+    description: GRANT and REVOKE on databases.
+    requires: [security]
+  - id: access.revoke
+    description: REVOKE takes a privilege away.
+    requires: [security]
+  - id: access.branch_control
+    description: dolt_branch_control grants read, write and admin per branch.
+    requires: [security, faults]
+  - id: access.branch_namespace_control
+    description: dolt_branch_namespace_control limits who may create which branch names.
+    requires: [security]
+  # Let tools inspect (reference/sql-support/system-catalog-schema)
+  - id: catalog.information_schema
+    description: 'information_schema views: tables, columns, constraints, key_column_usage, routines, triggers, views.'
+    requires: [compatibility]
+  - id: catalog.pg_catalog
+    description: pg_catalog tables and views (the catalog.table lattice).
+    requires: [compatibility]
+  - id: catalog.reg_types
+    description: Casts to regclass, regproc, regtype and regnamespace.
+    requires: [compatibility]
+  - id: catalog.psql_describe
+    description: "psql's describe commands: \\d, \\dt, \\df and the rest."
+    requires: [compatibility]
+  - id: catalog.orm_introspection
+    description: What SQLAlchemy, Drizzle and Knex read to reflect a schema.
+    requires: [compatibility]
+  # Move Postgres in (guides/import)
+  - id: import.pg_dump.restore
+    description: A pg_dump from PostgreSQL 17, restored with psql.
+    requires: [compatibility, faults]
+  - id: import.pg_dump.from_doltgres
+    description: pg_dump run against Doltgres.
+    requires: [compatibility]
+  - id: import.copy.csv
+    description: COPY ... FROM in CSV format.
+    requires: [compatibility]
+  - id: import.copy.text
+    description: COPY ... FROM in text format.
+    requires: [compatibility]
+  - id: import.roundtrip
+    description: Dump, restore, and every row and type compares equal.
+    requires: [compatibility]
+  # Record versions (reference/sql/version-control)
+  - id: vc.status
+    description: dolt.status lists staged and unstaged changes.
+    requires: [versioning]
+  - id: vc.add
+    description: dolt_add() stages tables.
+    requires: [versioning]
+  - id: vc.commit
+    description: dolt_commit() records a commit, with -m, -a, --allow-empty and --author.
+    requires: [versioning, faults]
+  - id: vc.reset.soft
+    description: dolt_reset() unstages.
+    requires: [versioning]
+  - id: vc.reset.hard
+    description: dolt_reset('--hard') returns the working set to HEAD.
+    requires: [versioning]
+  - id: vc.clean
+    description: dolt_clean() drops untracked tables.
+    requires: [versioning]
+  - id: vc.rm
+    description: dolt_rm() removes tables from the working set and staging.
+    requires: [versioning]
+  - id: vc.stash
+    description: dolt_stash() pushes, pops, drops and lists stashes.
+    requires: [versioning]
+  - id: vc.ignore
+    description: dolt_ignore keeps matching tables out of commits.
+    requires: [versioning]
+  - id: vc.tag
+    description: dolt_tag() creates, deletes and lists tags.
+    requires: [versioning]
+  - id: vc.log
+    description: dolt.log and dolt_log() list commits.
+    requires: [versioning]
+  - id: vc.count_commits
+    description: dolt_count_commits() counts commits between revisions.
+    requires: [versioning]
+  - id: vc.commits
+    description: dolt.commits and dolt.commit_ancestors.
+    requires: [versioning]
+  # Work on branches (reference/sql/version-control/branches)
+  - id: vc.branch.create
+    description: dolt_branch() creates a branch.
+    requires: [versioning, faults]
+  - id: vc.branch.copy
+    description: dolt_branch('-c') copies a branch.
+    requires: [versioning]
+  - id: vc.branch.rename
+    description: dolt_branch('-m') renames a branch.
+    requires: [versioning]
+  - id: vc.branch.delete
+    description: dolt_branch('-d') deletes a branch, and -D forces it.
+    requires: [versioning, faults]
+  - id: vc.checkout
+    description: dolt_checkout() switches branch, creates one with -b, or restores a table.
+    requires: [versioning]
+  - id: vc.active_branch
+    description: active_branch() names the session's branch.
+    requires: [versioning]
+  - id: vc.branch.revision_db
+    description: db/branch and db@commit database names read a revision.
+    requires: [versioning]
+  - id: vc.branch.use
+    description: USE db/branch switches the session's branch.
+    requires: [versioning]
+  - id: vc.branches
+    description: dolt.branches lists branches.
+    requires: [versioning]
+  # Combine work (reference/sql/version-control/merges)
+  - id: vc.merge.fast_forward
+    description: dolt_merge() fast-forwards when it can.
+    requires: [versioning, faults]
+  - id: vc.merge.no_ff
+    description: dolt_merge('--no-ff') always makes a merge commit.
+    requires: [versioning, faults]
+  - id: vc.merge.squash
+    description: dolt_merge('--squash') applies the changes without a merge commit.
+    requires: [versioning, faults]
+  - id: vc.merge.abort
+    description: dolt_merge('--abort') restores the state before the merge.
+    requires: [versioning]
+  - id: vc.merge.status
+    description: dolt.merge_status reports a merge in progress.
+    requires: [versioning]
+  - id: vc.conflicts
+    description: dolt.conflicts and dolt_conflicts_$table list data conflicts.
+    requires: [versioning]
+  - id: vc.schema_conflicts
+    description: dolt.schema_conflicts lists schema conflicts.
+    requires: [versioning]
+  - id: vc.conflicts_resolve
+    description: dolt_conflicts_resolve('--ours' or '--theirs').
+    requires: [versioning]
+  - id: vc.constraint_violations
+    description: dolt.constraint_violations and dolt_constraint_violations_$table.
+    requires: [versioning]
+  - id: vc.verify_constraints
+    description: dolt_verify_constraints() checks the constraints and records violations.
+    requires: [versioning]
+  - id: vc.preview_conflicts
+    description: dolt_preview_merge_conflicts() and its summary preview a merge.
+    requires: [versioning]
+  - id: vc.cherry_pick
+    description: dolt_cherry_pick() applies one commit's changes.
+    requires: [versioning, faults]
+  - id: vc.revert
+    description: dolt_revert() undoes a commit's changes in a new commit.
+    requires: [versioning, faults]
+  - id: vc.rebase
+    description: dolt_rebase() replays commits from a plan in dolt.rebase.
+    requires: [versioning, faults]
+  # See what changed (reference/sql/version-control/querying-history)
+  - id: vc.as_of
+    description: SELECT ... AS OF a branch, tag, commit or time.
+    requires: [versioning]
+  - id: vc.history_table
+    description: dolt_history_$table lists every version of every row.
+    requires: [versioning]
+  - id: vc.diff_table
+    description: dolt_diff_$table lists row changes per commit.
+    requires: [versioning]
+  - id: vc.commit_diff_table
+    description: dolt_commit_diff_$table diffs two commits.
+    requires: [versioning]
+  - id: vc.diff
+    description: dolt.diff and dolt.column_diff list changed tables and columns.
+    requires: [versioning]
+  - id: vc.diff_fn
+    description: dolt_diff() diffs a table between two revisions.
+    requires: [versioning]
+  - id: vc.diff_stat
+    description: dolt_diff_stat() counts changes.
+    requires: [versioning]
+  - id: vc.diff_summary
+    description: dolt_diff_summary() lists changed tables.
+    requires: [versioning]
+  - id: vc.schema_diff
+    description: dolt_schema_diff() diffs schemas.
+    requires: [versioning]
+  - id: vc.query_diff
+    description: dolt_query_diff() diffs two queries' results.
+    requires: [versioning]
+  - id: vc.patch
+    description: dolt_patch() writes the SQL that turns one revision into another.
+    requires: [versioning]
+  - id: vc.blame
+    description: dolt_blame_$table names the commit that last changed each row.
+    requires: [versioning]
+  - id: vc.reflog
+    description: dolt_reflog() lists the history of a ref.
+    requires: [versioning]
+  - id: vc.hashof
+    description: dolt_hashof(), dolt_hashof_table() and dolt_hashof_db().
+    requires: [versioning]
+  - id: vc.merge_base
+    description: dolt_merge_base() and dolt_merge_bases().
+    requires: [versioning]
+  - id: vc.has_ancestor
+    description: has_ancestor() tests ancestry.
+    requires: [versioning]
+  - id: vc.workspace
+    description: dolt_workspace_$table shows the working set's changes.
+    requires: [versioning]
+  - id: vc.history_view
+    description: Views queried AS OF a revision.
+    requires: [versioning]
+  - id: vc.version
+    description: dolt_version() reports the version.
+    requires: [versioning]
+  # Share and sync (reference/sql/version-control/remotes)
+  - id: vc.remote.add
+    description: dolt_remote('add') adds a remote.
+    requires: [versioning]
+  - id: vc.remote.remove
+    description: dolt_remote('remove') removes a remote.
+    requires: [versioning]
+  - id: vc.push
+    description: dolt_push(), with --force and --set-upstream.
+    requires: [versioning, faults]
+  - id: vc.pull
+    description: dolt_pull() fetches and merges.
+    requires: [versioning, faults]
+  - id: vc.fetch
+    description: dolt_fetch() updates remote branches.
+    requires: [versioning, faults]
+  - id: vc.clone
+    description: dolt_clone() clones a database.
+    requires: [versioning, faults]
+  - id: vc.remote_branches
+    description: dolt.remote_branches lists remote branches.
+    requires: [versioning]
+  - id: vc.remote.kinds
+    description: 'file:// and DoltHub remotes.'
+    requires: [versioning]
+  # Replicas and failover (reference/sql/server/replication)
+  - id: replication.remote.primary
+    description: A primary pushes to a remote on every commit.
+    requires: [operations, faults]
+  - id: replication.remote.replica
+    description: A read replica pulls from the remote on read.
+    requires: [operations, faults]
+  - id: replication.remote.multi_db
+    description: Replication of several databases.
+    requires: [operations]
+  - id: replication.remote.branch_delete
+    description: A deleted branch is deleted on the replicas.
+    requires: [operations]
+  - id: replication.standby.configure
+    description: Direct-to-standby replication between servers.
+    requires: [operations, faults]
+  - id: replication.standby.role_epoch
+    description: Each server's role and epoch, and their automatic transitions.
+    requires: [operations, faults]
+  - id: replication.standby.failover
+    description: dolt_assume_cluster_role() and transition_to_standby fail over.
+    requires: [operations, faults]
+  - id: replication.from_postgres
+    description: Replication from PostgreSQL into Doltgres.
+    requires: [operations, faults]
+  # Back up and recover (reference/sql/server/backups)
+  - id: backup.sync
+    description: dolt_backup() adds, syncs and removes backups.
+    requires: [operations, faults]
+  - id: backup.restore
+    description: dolt_backup('restore') restores a backup.
+    requires: [operations, faults]
+  - id: backup.push_branch
+    description: Pushing a branch to a remote as a backup.
+    requires: [operations]
+  - id: backup.server_copy
+    description: A file copy or snapshot of the data directory starts as a working server.
+    requires: [operations]
+  - id: backup.undrop
+    description: dolt_undrop() restores a dropped database.
+    requires: [operations]
+  - id: backup.purge_dropped
+    description: dolt_purge_dropped_databases() removes dropped databases for good.
+    requires: [operations]
+  - id: backup.gc_safe
+    description: Garbage collection keeps every reachable commit.
+    requires: [operations, faults]
+  # Subjects
+  - id: server.doltgres
+    description: 'The Doltgres server a Doltgres subject runs: a release or a build of main.'
+    requires: []
+  - id: reference.postgres
+    description: PostgreSQL 17, the reference every answer is compared with. Not part of Doltgres.
+    requires: []

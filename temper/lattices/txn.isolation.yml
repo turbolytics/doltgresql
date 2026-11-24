@@ -1,0 +1,11 @@
+id: txn.isolation
+description: >
+  The isolation levels PostgreSQL defines (postgresql.org/docs/current/transaction-iso.html).
+  A supported level prevents every anomaly PostgreSQL's docs say it prevents;
+  an unsupported one is refused when requested.
+applies_to: database
+requires: [concurrency]
+members:
+  - {key: read committed}
+  - {key: repeatable read}
+  - {key: serializable}

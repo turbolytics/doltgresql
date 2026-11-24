@@ -1,0 +1,273 @@
+# What must never happen, by family, approved before any test. applies_to
+# database covers all three subjects, so each Doltgres cell has a PostgreSQL
+# cell beside it; database+Versioned covers only the Doltgres subjects.
+invariants:
+  # answers
+  - id: query.matches_postgres
+    claim: A supported statement returns the rows, types and NULLs PostgreSQL returns for the same data, in the same order when ORDER BY fixes it.
+    applies_to: database
+    family: answers
+    requires: [conformance]
+    # users hit it: #3939, #3896, #3723, #3722, #3714
+  - id: query.errors_match
+    claim: Input PostgreSQL rejects is rejected with the same SQLSTATE class, never silently accepted or altered.
+    applies_to: database
+    family: answers
+    requires: [conformance]
+    # users hit it: #3707, #3708, #3715
+  - id: server.no_panic
+    claim: No statement panics the server or ends the connection with an internal error.
+    applies_to: database
+    family: answers
+    requires: [conformance, concurrency, faults]
+    # users hit it: #3879, #3851, #3747, #3748, #3895
+  - id: sql.unsupported_fails_clean
+    claim: An unsupported statement fails with a clear error and changes nothing.
+    applies_to: database
+    family: answers
+    requires: [conformance]
+    # users hit it: the unsupported members of the support lattices
+  - id: catalog.matches_postgres
+    claim: information_schema and pg_catalog describe a schema as PostgreSQL does for the same DDL.
+    applies_to: database
+    family: answers
+    requires: [conformance, compatibility]
+    # users hit it: #3825, #3752, #3432, #3330
+  # schema
+  - id: schema.constraint_enforced
+    claim: 'Every declared constraint holds on every write path: INSERT, UPDATE, upsert, COPY, merge and cherry-pick.'
+    applies_to: database
+    family: schema
+    requires: [conformance, concurrency, versioning]
+    # users hit it: #3680, #3713, #3333
+  - id: schema.index_transparent
+    claim: An index never changes a query's result.
+    applies_to: database
+    family: schema
+    requires: [conformance]
+    # users hit it: #3812, #3813, #3789
+  - id: schema.ddl_atomic
+    claim: A failed DDL statement leaves no partial change.
+    applies_to: database
+    family: schema
+    requires: [conformance, faults]
+  - id: schema.ddl_preserves_data
+    claim: ALTER changes existing values only as PostgreSQL would.
+    applies_to: database
+    family: schema
+    requires: [conformance]
+    # users hit it: #3708, #3608, #3324
+  - id: schema.sequence_unique
+    claim: nextval never returns a value twice, under concurrency too, and respects setval.
+    applies_to: database
+    family: schema
+    requires: [conformance, concurrency]
+    # users hit it: #3690
+  # transactions
+  - id: txn.no_dirty_write
+    claim: "G0: no write overwrites another transaction's uncommitted write."
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+  - id: txn.no_dirty_read
+    claim: 'G1a and G1b: no transaction reads uncommitted or aborted data.'
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+  - id: txn.no_circular_info
+    claim: "G1c: no cycle of transactions each seeing the other's writes."
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+  - id: txn.no_lost_update
+    claim: 'P4: a committed update is never overwritten by a stale read-modify-write.'
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+    # users hit it: #3617 (fixed for one column); the cross-column case
+  - id: txn.no_read_skew
+    claim: 'G-single: repeatable read and above read one snapshot.'
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+  - id: txn.no_write_skew
+    claim: 'G2-item: serializable prevents write skew.'
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+    # users hit it: #3063
+  - id: txn.bank_conserved
+    claim: Concurrent transfers preserve the total.
+    applies_to: database
+    family: transactions
+    requires: [concurrency, faults]
+    # users hit it: the 1.5.1 lost-transfer runs
+  - id: txn.atomic
+    claim: A rolled-back or failed transaction leaves no effect.
+    applies_to: database
+    family: transactions
+    requires: [conformance, concurrency, faults]
+    # users hit it: #3698
+  - id: txn.visible_after_commit
+    claim: After COMMIT returns, every new transaction sees its writes.
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+  - id: txn.constraints_under_race
+    claim: Unique and foreign keys hold under concurrent writers.
+    applies_to: database
+    family: transactions
+    requires: [concurrency]
+  # durability
+  - id: durability.commit_survives_crash
+    claim: A committed transaction survives kill -9 and a restart.
+    applies_to: database
+    family: durability
+    requires: [faults]
+  - id: durability.no_partial_after_crash
+    claim: After a crash, no transaction is half applied, and every branch head is a valid commit.
+    applies_to: database
+    family: durability
+    requires: [faults]
+  - id: client.no_double_apply
+    claim: A statement whose connection dropped is applied once or not at all.
+    applies_to: database
+    family: durability
+    requires: [faults]
+  - id: client.clear_failure
+    claim: With the server down or slow, a client gets an error within its timeout, never a hang.
+    applies_to: database
+    family: durability
+    requires: [faults]
+  # versioning
+  - id: vc.commit_atomic
+    claim: dolt_commit records exactly the committed state at that moment, never half of a concurrent transaction.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning, concurrency]
+  - id: vc.history_immutable
+    claim: "A commit's content never changes: AS OF a commit always returns the same rows."
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning, faults]
+  - id: vc.branch_isolated
+    claim: Writes on one branch are invisible on another until merged, across sessions.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning, concurrency]
+    # users hit it: #3698
+  - id: vc.merge_no_silent_loss
+    claim: A merge keeps both sides' changes, or reports a conflict or a violation. It never drops a change silently.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning]
+    # users hit it: #3627, #3751
+  - id: vc.merge_constraints
+    claim: A merge result satisfies the constraints, or each violation is recorded and reported.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning]
+    # users hit it: #3700
+  - id: vc.diff_complete
+    claim: A diff between two commits lists exactly the rows that differ between their snapshots.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning]
+    # users hit it: #3699
+  - id: vc.reset_restores
+    claim: reset --hard returns the working set exactly to HEAD.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning]
+  - id: vc.revert_inverse
+    claim: Reverting a commit restores what it changed, when nothing later conflicts.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning]
+  - id: vc.schema_scoped
+    claim: Version-control functions act on the named schema's table, not another schema's.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning]
+    # users hit it: #3699, #3750
+  - id: vc.branch_ops_atomic
+    claim: A failed branch operation leaves no branch, tag or permission row behind.
+    applies_to: database+Versioned
+    family: versioning
+    requires: [versioning, faults]
+    # users hit it: #3895
+  # sharing
+  - id: vc.remote_equal
+    claim: A clone, pull or fetch equals the source at that commit, row for row and by hash.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [versioning, faults]
+  - id: vc.push_atomic
+    claim: A failed push leaves the remote at its old head.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [faults]
+  - id: replication.no_lost_commit
+    claim: A commit the primary acknowledged reaches every replica after recovery, failover included.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [operations, faults]
+  - id: replication.replica_consistent
+    claim: A replica never shows a half-applied commit.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [operations, faults]
+  - id: backup.restore_equal
+    claim: A restore equals the database at the backup point.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [operations, faults]
+  - id: backup.gc_keeps_reachable
+    claim: Garbage collection never loses a reachable commit or row.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [operations, faults]
+  - id: server.upgrade_preserves
+    claim: A database written by the previous release opens and reads the same on the new one.
+    applies_to: database+Versioned
+    family: sharing
+    requires: [operations]
+    # users hit it: #3877
+  # access
+  - id: access.least_privilege
+    claim: A role reads and writes only what it was granted, and REVOKE takes effect for new statements.
+    applies_to: database
+    family: access
+    requires: [security]
+    # users hit it: #3448, #3327
+  - id: access.denied_no_effect
+    claim: A statement refused for privileges changes nothing and reports the refusal.
+    applies_to: database
+    family: access
+    requires: [security]
+    # users hit it: #3833
+  - id: access.branch_control_enforced
+    claim: Writing to a branch without permission is refused on every path, including dolt_merge, dolt_reset, cherry-pick and revert.
+    applies_to: database+Versioned
+    family: access
+    requires: [security, versioning]
+    # users hit it: #3833
+  - id: access.history_respects_grants
+    claim: History, diff, blame and AS OF never expose rows of a table the role cannot read.
+    applies_to: database+Versioned
+    family: access
+    requires: [security, versioning]
+    # users hit it: #3938
+  # compatibility
+  - id: client.driver_standard_flow
+    claim: Each documented driver connects, prepares, binds every supported type, runs transactions and reads back equal values.
+    applies_to: database
+    family: compatibility
+    requires: [compatibility]
+    # users hit it: #3747, #3748, #3234
+  - id: import.roundtrip_lossless
+    claim: A pg_dump from PostgreSQL restores into Doltgres, and every row and value compares equal.
+    applies_to: database
+    family: compatibility
+    requires: [compatibility]
+    # users hit it: #3940, #3815-#3818

@@ -1,0 +1,1464 @@
+# PostgreSQL 17 (postgres:17), the reference every answer is compared with.
+# Lattice answers come from Doltgres's own support pages (or, for
+# PostgreSQL, from its being the reference), via
+# temper/recipe/lattices_from_docs.py. The client.driver and
+# txn.isolation answers are written by hand.
+id: postgres.reference
+kind: database
+feature: reference.postgres
+answers:
+  sql.command:
+    "ALTER TABLE": supported
+    "CREATE DATABASE": supported
+    "CREATE TABLE": supported
+    "DROP DATABASE": supported
+    "DROP TABLE": supported
+    "CALL": supported
+    "DELETE": supported
+    "INSERT": supported
+    "SELECT": supported
+    "UPDATE": supported
+    "VALUES": supported
+    "ALTER DEFAULT PRIVILEGES": supported
+    "ALTER GROUP": supported
+    "ALTER ROLE": supported
+    "ALTER USER": supported
+    "ALTER USER MAPPING": supported
+    "CREATE GROUP": supported
+    "CREATE ROLE": supported
+    "CREATE USER": supported
+    "CREATE USER MAPPING": supported
+    "DROP GROUP": supported
+    "DROP ROLE": supported
+    "DROP USER": supported
+    "DROP USER MAPPING": supported
+    "GRANT": supported
+    "REASSIGN OWNED": supported
+    "REVOKE": supported
+    "ALTER AGGREGATE": supported
+    "ALTER COLLATION": supported
+    "ALTER CONVERSION": supported
+    "ALTER DATABASE": supported
+    "ALTER DOMAIN": supported
+    "ALTER EVENT TRIGGER": supported
+    "ALTER EXTENSION": supported
+    "ALTER FOREIGN DATA WRAPPER": supported
+    "ALTER FOREIGN TABLE": supported
+    "ALTER FUNCTION": supported
+    "ALTER INDEX": supported
+    "ALTER LANGUAGE": supported
+    "ALTER LARGE OBJECT": supported
+    "ALTER MATERIALIZED VIEW": supported
+    "ALTER OPERATOR": supported
+    "ALTER OPERATOR CLASS": supported
+    "ALTER OPERATOR FAMILY": supported
+    "ALTER POLICY": supported
+    "ALTER PROCEDURE": supported
+    "ALTER PUBLICATION": supported
+    "ALTER ROUTINE": supported
+    "ALTER RULE": supported
+    "ALTER SCHEMA": supported
+    "ALTER SEQUENCE": supported
+    "ALTER SERVER": supported
+    "ALTER STATISTICS": supported
+    "ALTER SUBSCRIPTION": supported
+    "ALTER SYSTEM": supported
+    "ALTER TABLESPACE": supported
+    "ALTER TEXT SEARCH CONFIGURATION": supported
+    "ALTER TEXT SEARCH DICTIONARY": supported
+    "ALTER TEXT SEARCH PARSER": supported
+    "ALTER TEXT SEARCH TEMPLATE": supported
+    "ALTER TRIGGER": supported
+    "ALTER TYPE": supported
+    "ALTER VIEW": supported
+    "COMMENT": supported
+    "CREATE ACCESS METHOD": supported
+    "CREATE AGGREGATE": supported
+    "CREATE CAST": supported
+    "CREATE COLLATION": supported
+    "CREATE CONVERSION": supported
+    "CREATE DOMAIN": supported
+    "CREATE EVENT TRIGGER": supported
+    "CREATE EXTENSION": supported
+    "CREATE FOREIGN DATA WRAPPER": supported
+    "CREATE FOREIGN TABLE": supported
+    "CREATE FUNCTION": supported
+    "CREATE INDEX": supported
+    "CREATE LANGUAGE": supported
+    "CREATE MATERIALIZED VIEW": supported
+    "CREATE OPERATOR": supported
+    "CREATE OPERATOR CLASS": supported
+    "CREATE OPERATOR FAMILY": supported
+    "CREATE POLICY": supported
+    "CREATE PROCEDURE": supported
+    "CREATE PUBLICATION": supported
+    "CREATE RULE": supported
+    "CREATE SCHEMA": supported
+    "CREATE SEQUENCE": supported
+    "CREATE SERVER": supported
+    "CREATE STATISTICS": supported
+    "CREATE SUBSCRIPTION": supported
+    "CREATE TABLE ... PARTITION": supported
+    "CREATE TABLESPACE": supported
+    "CREATE TEXT SEARCH CONFIGURATION": supported
+    "CREATE TEXT SEARCH DICTIONARY": supported
+    "CREATE TEXT SEARCH PARSER": supported
+    "CREATE TEXT SEARCH TEMPLATE": supported
+    "CREATE TRANSFORM": supported
+    "CREATE TRIGGER": supported
+    "CREATE TYPE": supported
+    "CREATE VIEW": supported
+    "DROP ACCESS METHOD": supported
+    "DROP AGGREGATE": supported
+    "DROP CAST": supported
+    "DROP COLLATION": supported
+    "DROP CONVERSION": supported
+    "DROP DOMAIN": supported
+    "DROP EVENT TRIGGER": supported
+    "DROP EXTENSION": supported
+    "DROP FOREIGN DATA WRAPPER": supported
+    "DROP FOREIGN TABLE": supported
+    "DROP FUNCTION": supported
+    "DROP INDEX": supported
+    "DROP LANGUAGE": supported
+    "DROP MATERIALIZED VIEW": supported
+    "DROP OPERATOR": supported
+    "DROP OPERATOR CLASS": supported
+    "DROP OPERATOR FAMILY": supported
+    "DROP OWNED": supported
+    "DROP POLICY": supported
+    "DROP PROCEDURE": supported
+    "DROP PUBLICATION": supported
+    "DROP ROUTINE": supported
+    "DROP RULE": supported
+    "DROP SCHEMA": supported
+    "DROP SEQUENCE": supported
+    "DROP SERVER": supported
+    "DROP STATISTICS": supported
+    "DROP SUBSCRIPTION": supported
+    "DROP TABLESPACE": supported
+    "DROP TEXT SEARCH CONFIGURATION": supported
+    "DROP TEXT SEARCH DICTIONARY": supported
+    "DROP TEXT SEARCH PARSER": supported
+    "DROP TEXT SEARCH TEMPLATE": supported
+    "DROP TRANSFORM": supported
+    "DROP TRIGGER": supported
+    "DROP TYPE": supported
+    "DROP VIEW": supported
+    "SECURITY LABEL": supported
+    "CLOSE": supported
+    "CREATE TABLE AS": supported
+    "CLUSTER": supported
+    "COPY": supported
+    "DECLARE": supported
+    "DO": supported
+    "FETCH": supported
+    "IMPORT FOREIGN SCHEMA": supported
+    "LOAD": supported
+    "MERGE": supported
+    "MOVE": supported
+    "REFRESH MATERIALIZED VIEW": supported
+    "REINDEX": supported
+    "SELECT INTO": supported
+    "TRUNCATE": supported
+    "VACUUM": supported
+    "DEALLOCATE": supported
+    "PREPARE": supported
+    "EXECUTE": supported
+    "DISCARD": supported
+    "RESET": supported
+    "SET": supported
+    "SET CONSTRAINTS": supported
+    "SET ROLE": supported
+    "SET SESSION AUTHORIZATION": supported
+    "SET TRANSACTION": supported
+    "SHOW": supported
+    "ABORT": supported
+    "BEGIN": supported
+    "CHECKPOINT": supported
+    "COMMIT": supported
+    "COMMIT PREPARED": supported
+    "END": supported
+    "LISTEN": supported
+    "LOCK": supported
+    "NOTIFY": supported
+    "PREPARE TRANSACTION": supported
+    "RELEASE SAVEPOINT": supported
+    "ROLLBACK": supported
+    "ROLLBACK PREPARED": supported
+    "ROLLBACK TO SAVEPOINT": supported
+    "SAVEPOINT": supported
+    "START TRANSACTION": supported
+    "UNLISTEN": supported
+    "ANALYZE": supported
+    "EXPLAIN": supported
+  sql.type:
+    "bit": supported
+    "bit[]": supported
+    "boolean": supported
+    "boolean[]": supported
+    "box": supported
+    "box[]": supported
+    "bytea": supported
+    "bytea[]": supported
+    "\"char\"": supported
+    "char": supported
+    "char[]": supported
+    "cidr": supported
+    "cidr[]": supported
+    "circle": supported
+    "circle[]": supported
+    "date": supported
+    "date[]": supported
+    "datemultirange": supported
+    "daterange": supported
+    "float4": supported
+    "float4[]": supported
+    "float8": supported
+    "float8[]": supported
+    "inet": supported
+    "inet[]": supported
+    "int2": supported
+    "int2vector": supported
+    "int2[]": supported
+    "int4": supported
+    "int4[]": supported
+    "int4multirange": supported
+    "int4range": supported
+    "int8": supported
+    "int8[]": supported
+    "int8multirange": supported
+    "int8range": supported
+    "interval": supported
+    "interval[]": supported
+    "json": supported
+    "json[]": supported
+    "jsonb": supported
+    "jsonb[]": supported
+    "line": supported
+    "line[]": supported
+    "lseg": supported
+    "lseg[]": supported
+    "macaddr": supported
+    "macaddr8": supported
+    "macaddr8[]": supported
+    "macaddr[]": supported
+    "money": supported
+    "money[]": supported
+    "name": supported
+    "numeric": supported
+    "numeric[]": supported
+    "nummultirange": supported
+    "numrange": supported
+    "path": supported
+    "path[]": supported
+    "point": supported
+    "point[]": supported
+    "polygon": supported
+    "polygon[]": supported
+    "serial2": supported
+    "serial4": supported
+    "serial8": supported
+    "text": supported
+    "text[]": supported
+    "time": supported
+    "time[]": supported
+    "timestamp": supported
+    "timestamp[]": supported
+    "timestamptz": supported
+    "timestamptz[]": supported
+    "timetz": supported
+    "timetz[]": supported
+    "tsmultirange": supported
+    "tsquery": supported
+    "tsquery[]": supported
+    "tsrange": supported
+    "tstzmultirange": supported
+    "tstzrange": supported
+    "tsvector": supported
+    "tsvector[]": supported
+    "uuid": supported
+    "uuid[]": supported
+    "varbit": supported
+    "varbit[]": supported
+    "varchar": supported
+    "varchar[]": supported
+    "xml": supported
+    "xml[]": supported
+    "any": supported
+    "anyarray": supported
+    "anycompatible": supported
+    "anycompatiblearray": supported
+    "anycompatiblemultirange": supported
+    "anycompatiblenonarray": supported
+    "anycompatiblerange": supported
+    "anyelement": supported
+    "anyenum": supported
+    "anymultirange": supported
+    "anynonarray": supported
+    "anyrange": supported
+    "cstring": supported
+    "event_trigger": supported
+    "fdw_handler": supported
+    "index_am_handler": supported
+    "internal": supported
+    "language_handler": supported
+    "pg_ddl_command": supported
+    "record": supported
+    "table_am_handler": supported
+    "trigger": supported
+    "tsm_handler": supported
+    "unknown": supported
+    "void": supported
+    "oid": supported
+    "oidvector": supported
+    "cid": supported
+    "tid": supported
+    "xid": supported
+    "regclass": supported
+    "regcollation": supported
+    "regconfig": supported
+    "regdictionary": supported
+    "regnamespace": supported
+    "regoper": supported
+    "regoperator": supported
+    "regproc": supported
+    "regprocedure": supported
+    "regrole": supported
+    "regtype": supported
+  sql.function:
+    "Logical Operators: AND": supported
+    "Logical Operators: OR": supported
+    "Logical Operators: NOT": supported
+    "Comparison Operators: datatype < datatype": supported
+    "Comparison Operators: datatype > datatype": supported
+    "Comparison Operators: datatype <= datatype": supported
+    "Comparison Operators: datatype >= datatype": supported
+    "Comparison Operators: datatype = datatype": supported
+    "Comparison Operators: datatype <> datatype": supported
+    "Comparison Operators: datatype != datatype": supported
+    "Comparison Predicates: datatype [NOT] BETWEEN datatype AND datatype": supported
+    "Comparison Predicates: datatype BETWEEN SYMMETRIC datatype AND datatype": supported
+    "Comparison Predicates: datatype IS [NOT] DISTINCT FROM datatype": supported
+    "Comparison Predicates: datatype IS [NOT] NULL": supported
+    "Comparison Predicates: datatype IS [NOT] TRUE": supported
+    "Comparison Predicates: datatype IS [NOT] FALSE": supported
+    "Comparison Predicates: datatype IS [NOT] UNKNOWN": supported
+    "Comparison Functions: num_nonnulls": supported
+    "Comparison Functions: num_nulls": supported
+    "Mathematical Operators: numeric_type + numeric_type": supported
+    "Mathematical Operators: + numeric_type": supported
+    "Mathematical Operators: numeric_type - numeric_type": supported
+    "Mathematical Operators: - numeric_type": supported
+    "Mathematical Operators: numeric_type * numeric_type": supported
+    "Mathematical Operators: numeric_type / numeric_type": supported
+    "Mathematical Operators: numeric_type % numeric_type": supported
+    "Mathematical Operators: numeric_type ^ numeric_type": supported
+    "Mathematical Operators: |/ double_precision": supported
+    "Mathematical Operators: ||/ double_precision": supported
+    "Mathematical Operators: @ numeric_type": supported
+    "Mathematical Operators: integral_type & integral_type": supported
+    "Mathematical Operators: integral_type | integral_type": supported
+    "Mathematical Operators: integral_type # integral_type": supported
+    "Mathematical Operators: ~ integral_type": supported
+    "Mathematical Operators: integral_type << integer": supported
+    "Mathematical Operators: integral_type >> integer": supported
+    "Mathematical Functions: abs": supported
+    "Mathematical Functions: cbrt": supported
+    "Mathematical Functions: ceil": supported
+    "Mathematical Functions: ceiling": supported
+    "Mathematical Functions: degrees": supported
+    "Mathematical Functions: div": supported
+    "Mathematical Functions: erf": supported
+    "Mathematical Functions: erfc": supported
+    "Mathematical Functions: exp": supported
+    "Mathematical Functions: factorial": supported
+    "Mathematical Functions: floor": supported
+    "Mathematical Functions: gcd": supported
+    "Mathematical Functions: lcm": supported
+    "Mathematical Functions: ln": supported
+    "Mathematical Functions: log": supported
+    "Mathematical Functions: log10": supported
+    "Mathematical Functions: min_scale": supported
+    "Mathematical Functions: mod": supported
+    "Mathematical Functions: pi": supported
+    "Mathematical Functions: power": supported
+    "Mathematical Functions: radians": supported
+    "Mathematical Functions: round": supported
+    "Mathematical Functions: scale": supported
+    "Mathematical Functions: sign": supported
+    "Mathematical Functions: sqrt": supported
+    "Mathematical Functions: trim_scale": supported
+    "Mathematical Functions: trunc": supported
+    "Mathematical Functions: width_bucket": supported
+    "Random Functions: random": supported
+    "Random Functions: setseed": supported
+    "Trigonometric Functions: acos": supported
+    "Trigonometric Functions: acosd": supported
+    "Trigonometric Functions: asin": supported
+    "Trigonometric Functions: asind": supported
+    "Trigonometric Functions: atan": supported
+    "Trigonometric Functions: atand": supported
+    "Trigonometric Functions: atan2": supported
+    "Trigonometric Functions: atan2d": supported
+    "Trigonometric Functions: cos": supported
+    "Trigonometric Functions: cosd": supported
+    "Trigonometric Functions: cot": supported
+    "Trigonometric Functions: cotd": supported
+    "Trigonometric Functions: sin": supported
+    "Trigonometric Functions: sind": supported
+    "Trigonometric Functions: tan": supported
+    "Trigonometric Functions: tand": supported
+    "Hyperbolic Functions: sinh": supported
+    "Hyperbolic Functions: cosh": supported
+    "Hyperbolic Functions: tanh": supported
+    "Hyperbolic Functions: asinh": supported
+    "Hyperbolic Functions: acosh": supported
+    "Hyperbolic Functions: atanh": supported
+    "SQL String Functions and Operators: text || text": supported
+    "SQL String Functions and Operators: anynonarray || text": supported
+    "SQL String Functions and Operators: text || anynonarray": supported
+    "SQL String Functions and Operators: text IS [NOT][form] NORMALIZED": supported
+    "SQL String Functions and Operators: btrim": supported
+    "SQL String Functions and Operators: bit_length": supported
+    "SQL String Functions and Operators: char_length": supported
+    "SQL String Functions and Operators: lower": supported
+    "SQL String Functions and Operators: lpad": supported
+    "SQL String Functions and Operators: ltrim": supported
+    "SQL String Functions and Operators: normalize": supported
+    "SQL String Functions and Operators: octet_length": supported
+    "SQL String Functions and Operators: overlay": supported
+    "SQL String Functions and Operators: position": supported
+    "SQL String Functions and Operators: rpad": supported
+    "SQL String Functions and Operators: rtrim": supported
+    "SQL String Functions and Operators: substring": supported
+    "SQL String Functions and Operators: trim": supported
+    "SQL String Functions and Operators: unicode_assigned": supported
+    "SQL String Functions and Operators: upper": supported
+    "Other String Functions: text ^@ text": supported
+    "Other String Functions: ascii": supported
+    "Other String Functions: chr": supported
+    "Other String Functions: concat": supported
+    "Other String Functions: concat_ws": supported
+    "Other String Functions: format": supported
+    "Other String Functions: initcap": supported
+    "Other String Functions: left": supported
+    "Other String Functions: length": supported
+    "Other String Functions: md5": supported
+    "Other String Functions: parse_ident": supported
+    "Other String Functions: pg_client_encoding": supported
+    "Other String Functions: quote_ident": supported
+    "Other String Functions: quote_literal": supported
+    "Other String Functions: quote_nullable": supported
+    "Other String Functions: regexp_count": supported
+    "Other String Functions: regexp_instr": supported
+    "Other String Functions: regexp_like": supported
+    "Other String Functions: regexp_match": supported
+    "Other String Functions: regexp_matches": supported
+    "Other String Functions: regexp_replace": supported
+    "Other String Functions: regexp_split_to_array": supported
+    "Other String Functions: regexp_split_to_table": supported
+    "Other String Functions: regexp_substr": supported
+    "Other String Functions: repeat": supported
+    "Other String Functions: replace": supported
+    "Other String Functions: reverse": supported
+    "Other String Functions: right": supported
+    "Other String Functions: split_part": supported
+    "Other String Functions: starts_with": supported
+    "Other String Functions: string_to_array": supported
+    "Other String Functions: string_to_table": supported
+    "Other String Functions: strpos": supported
+    "Other String Functions: substr": supported
+    "Other String Functions: to_ascii": supported
+    "Other String Functions: to_bin": supported
+    "Other String Functions: to_hex": supported
+    "Other String Functions: to_oct": supported
+    "Other String Functions: translate": supported
+    "Other String Functions: unistr": supported
+    "SQL Binary String Functions: bytea || bytea": supported
+    "SQL Binary String Functions: bit_length": supported
+    "SQL Binary String Functions: btrim": supported
+    "SQL Binary String Functions: ltrim": supported
+    "SQL Binary String Functions: octet_length": supported
+    "SQL Binary String Functions: overlay": supported
+    "SQL Binary String Functions: position": supported
+    "SQL Binary String Functions: rtrim": supported
+    "SQL Binary String Functions: substring": supported
+    "SQL Binary String Functions: trim": supported
+    "Other Binary String Functions: bit_count": supported
+    "Other Binary String Functions: get_bit": supported
+    "Other Binary String Functions: get_byte": supported
+    "Other Binary String Functions: length": supported
+    "Other Binary String Functions: md5": supported
+    "Other Binary String Functions: set_bit": supported
+    "Other Binary String Functions: set_byte": supported
+    "Other Binary String Functions: sha224": supported
+    "Other Binary String Functions: sha256": supported
+    "Other Binary String Functions: sha384": supported
+    "Other Binary String Functions: sha512": supported
+    "Other Binary String Functions: substr": supported
+    "Text/Binary String Conversion Functions: convert": supported
+    "Text/Binary String Conversion Functions: convert_from": supported
+    "Text/Binary String Conversion Functions: convert_to": supported
+    "Text/Binary String Conversion Functions: encode": supported
+    "Text/Binary String Conversion Functions: decode": supported
+    "Bit String Operators: bit || bit": supported
+    "Bit String Operators: bit & bit": supported
+    "Bit String Operators: bit | bit": supported
+    "Bit String Operators: bit # bit": supported
+    "Bit String Operators: ~ bit": supported
+    "Bit String Operators: bit << integer": supported
+    "Bit String Operators: bit >> integer": supported
+    "Bit String Functions: bit_count": supported
+    "Bit String Functions: bit_length": supported
+    "Bit String Functions: length": supported
+    "Bit String Functions: octet_length": supported
+    "Bit String Functions: overlay": supported
+    "Bit String Functions: position": supported
+    "Bit String Functions: substring": supported
+    "Bit String Functions: get_bit": supported
+    "Bit String Functions: set_bit": supported
+    "Pattern Matching: [NOT] LIKE pattern [ESCAPE escape-character": supported
+    "Pattern Matching: [NOT] SIMILAR TO pattern [ESCAPE escape-character": supported
+    "Regular Expression Match Operators: text ~ text": supported
+    "Regular Expression Match Operators: text ~* text": supported
+    "Regular Expression Match Operators: text !~ text": supported
+    "Regular Expression Match Operators: text !~* text": supported
+    "Formatting Functions: to_char": supported
+    "Formatting Functions: to_date": supported
+    "Formatting Functions: to_number": supported
+    "Formatting Functions: to_timestamp": supported
+    "Date/Time Operators: date + integer": supported
+    "Date/Time Operators: date + interval": supported
+    "Date/Time Operators: date + time": supported
+    "Date/Time Operators: interval + interval": supported
+    "Date/Time Operators: timestamp + interval": supported
+    "Date/Time Operators: time + interval": supported
+    "Date/Time Operators: - interval": supported
+    "Date/Time Operators: date - date": supported
+    "Date/Time Operators: date - integer": supported
+    "Date/Time Operators: date - interval": supported
+    "Date/Time Operators: time - time": supported
+    "Date/Time Operators: time - interval": supported
+    "Date/Time Operators: timestamp - interval": supported
+    "Date/Time Operators: interval - interval": supported
+    "Date/Time Operators: timestamp - timestamp": supported
+    "Date/Time Operators: interval * double_precision": supported
+    "Date/Time Operators: interval / double_precision": supported
+    "Date/Time Functions: age": supported
+    "Date/Time Functions: clock_timestamp": supported
+    "Date/Time Functions: current_date": supported
+    "Date/Time Functions: current_time": supported
+    "Date/Time Functions: current_timestamp": supported
+    "Date/Time Functions: date_add": supported
+    "Date/Time Functions: date_bin": supported
+    "Date/Time Functions: date_part": supported
+    "Date/Time Functions: date_subtract": supported
+    "Date/Time Functions: date_trunc": supported
+    "Date/Time Functions: extract": supported
+    "Date/Time Functions: isfinite": supported
+    "Date/Time Functions: justify_days": supported
+    "Date/Time Functions: justify_hours": supported
+    "Date/Time Functions: justify_interval": supported
+    "Date/Time Functions: localtime": supported
+    "Date/Time Functions: localtimestamp": supported
+    "Date/Time Functions: make_date": supported
+    "Date/Time Functions: make_interval": supported
+    "Date/Time Functions: make_time": supported
+    "Date/Time Functions: make_timestamp": supported
+    "Date/Time Functions: make_timestamptz": supported
+    "Date/Time Functions: now": supported
+    "Date/Time Functions: statement_timestamp": supported
+    "Date/Time Functions: timeofday": supported
+    "Date/Time Functions: timezone": supported
+    "Date/Time Functions: transaction_timestamp": supported
+    "Date/Time Functions: to_timestamp": supported
+    "Enum Support Functions: enum_first": supported
+    "Enum Support Functions: enum_last": supported
+    "Enum Support Functions: enum_range": supported
+    "Geometric Operators: geometric_type + point": supported
+    "Geometric Operators: path + path": supported
+    "Geometric Operators: geometric_type - point": supported
+    "Geometric Operators: geometric_type * point": supported
+    "Geometric Operators: geometric_type / point": supported
+    "Geometric Operators: @-@ geometric_type": supported
+    "Geometric Operators: @@ geometric_type": supported
+    "Geometric Operators: geometric_type # geometric_type": supported
+    "Geometric Operators: box # box": supported
+    "Geometric Operators: geometric_type ## geometric_type": supported
+    "Geometric Operators: geometric_type <-> geometric_type": supported
+    "Geometric Operators: geometric_type @> geometric_type": supported
+    "Geometric Operators: geometric_type <@ geometric_type": supported
+    "Geometric Operators: geometric_type && geometric_type": supported
+    "Geometric Operators: geometric_type << geometric_type": supported
+    "Geometric Operators: geometric_type >> geometric_type": supported
+    "Geometric Operators: geometric_type &< geometric_type": supported
+    "Geometric Operators: geometric_type &> geometric_type": supported
+    "Geometric Operators: geometric_type >>| geometric_type": supported
+    "Geometric Operators: geometric_type |>> geometric_type": supported
+    "Geometric Operators: geometric_type &>| geometric_type": supported
+    "Geometric Operators: geometric_type |&> geometric_type": supported
+    "Geometric Operators: box <^ box": supported
+    "Geometric Operators: box >^ box": supported
+    "Geometric Operators: geometric_type ?# geometric_type": supported
+    "Geometric Operators: ?- line": supported
+    "Geometric Operators: ?- lseg": supported
+    "Geometric Operators: point ?- point": supported
+    "Geometric Operators: ?| line": supported
+    "Geometric Operators: ?| lseg": supported
+    "Geometric Operators: point ?| point": supported
+    "Geometric Operators: line ?-| line": supported
+    "Geometric Operators: lseg ?-| lseg": supported
+    "Geometric Operators: line ?|| line": supported
+    "Geometric Operators: lseg ?|| lseg": supported
+    "Geometric Operators: geometric_type ~= geometric_type": supported
+    "Geometric Functions: area": supported
+    "Geometric Functions: center": supported
+    "Geometric Functions: diagonal": supported
+    "Geometric Functions: diameter": supported
+    "Geometric Functions: height": supported
+    "Geometric Functions: isclosed": supported
+    "Geometric Functions: isopen": supported
+    "Geometric Functions: length": supported
+    "Geometric Functions: npoints": supported
+    "Geometric Functions: pclose": supported
+    "Geometric Functions: popen": supported
+    "Geometric Functions: radius": supported
+    "Geometric Functions: slope": supported
+    "Geometric Functions: width": supported
+    "Geometric Type Conversion Functions: box": supported
+    "Geometric Type Conversion Functions: bound_box": supported
+    "Geometric Type Conversion Functions: circle": supported
+    "Geometric Type Conversion Functions: line": supported
+    "Geometric Type Conversion Functions: lseg": supported
+    "Geometric Type Conversion Functions: path": supported
+    "Geometric Type Conversion Functions: point": supported
+    "Geometric Type Conversion Functions: polygon": supported
+    "IP Address Operators: inet << inet": supported
+    "IP Address Operators: inet <<= inet": supported
+    "IP Address Operators: inet >> inet": supported
+    "IP Address Operators: inet >>= inet": supported
+    "IP Address Operators: inet && inet": supported
+    "IP Address Operators: ~ inet": supported
+    "IP Address Operators: inet & inet": supported
+    "IP Address Operators: inet | inet": supported
+    "IP Address Operators: inet + bigint": supported
+    "IP Address Operators: bigint + inet": supported
+    "IP Address Operators: inet - bigint": supported
+    "IP Address Operators: inet - inet": supported
+    "IP Address Functions: abbrev": supported
+    "IP Address Functions: broadcast": supported
+    "IP Address Functions: family": supported
+    "IP Address Functions: host": supported
+    "IP Address Functions: hostmask": supported
+    "IP Address Functions: inet_merge": supported
+    "IP Address Functions: inet_same_family": supported
+    "IP Address Functions: masklen": supported
+    "IP Address Functions: netmask": supported
+    "IP Address Functions: network": supported
+    "IP Address Functions: set_masklen": supported
+    "IP Address Functions: text": supported
+    "MAC Address Functions: trunc": supported
+    "MAC Address Functions: macaddr8_set7bit": supported
+    "Text Search Operators: tsvector @@ tsquery": supported
+    "Text Search Operators: tsquery @@ tsvector": supported
+    "Text Search Operators: text @@ tsquery": supported
+    "Text Search Operators: tsvector || tsvector": supported
+    "Text Search Operators: tsquery && tsquery": supported
+    "Text Search Operators: tsquery || tsquery": supported
+    "Text Search Operators: !! tsquery": supported
+    "Text Search Operators: tsquery <-> tsquery": supported
+    "Text Search Operators: tsquery @> tsquery": supported
+    "Text Search Operators: tsquery <@ tsquery": supported
+    "Text Search Functions: array_to_tsvector": supported
+    "Text Search Functions: get_current_ts_config": supported
+    "Text Search Functions: length": supported
+    "Text Search Functions: numnode": supported
+    "Text Search Functions: plainto_tsquery": supported
+    "Text Search Functions: phraseto_tsquery": supported
+    "Text Search Functions: websearch_to_tsquery": supported
+    "Text Search Functions: querytree": supported
+    "Text Search Functions: setweight": supported
+    "Text Search Functions: strip": supported
+    "Text Search Functions: to_tsquery": supported
+    "Text Search Functions: to_tsvector": supported
+    "Text Search Functions: json_to_tsvector": supported
+    "Text Search Functions: ts_delete": supported
+    "Text Search Functions: ts_filter": supported
+    "Text Search Functions: ts_headline": supported
+    "Text Search Functions: ts_rank": supported
+    "Text Search Functions: ts_rank_cd": supported
+    "Text Search Functions: ts_rewrite": supported
+    "Text Search Functions: tsquery_phrase": supported
+    "Text Search Functions: tsvector_to_array": supported
+    "Text Search Functions: unnest": supported
+    "Text Search Debugging Functions: ts_debug": supported
+    "Text Search Debugging Functions: ts_lexize": supported
+    "Text Search Debugging Functions: ts_parse": supported
+    "Text Search Debugging Functions: ts_token_type": supported
+    "Text Search Debugging Functions: ts_stat": supported
+    "UUID Functions: gen_random_uuid": supported
+    "UUID Functions: uuid_extract_timestamp": supported
+    "UUID Functions: uuid_extract_version": supported
+    "XML Functions: xmltext": supported
+    "XML Functions: xmlcomment": supported
+    "XML Functions: xmlconcat": supported
+    "XML Functions: xmlelement": supported
+    "XML Functions: xmlforest": supported
+    "XML Functions: xmlpi": supported
+    "XML Functions: xmlroot": supported
+    "XML Functions: xmlagg": supported
+    "XML Functions: xmlexists": supported
+    "XML Functions: xml_is_well_formed": supported
+    "XML Functions: xml_is_well_formed_document": supported
+    "XML Functions: xml_is_well_formed_content": supported
+    "XML Functions: xpath": supported
+    "XML Functions: xpath_exists": supported
+    "XML Functions: xmltable": supported
+    "XML Functions: table_to_xml": supported
+    "XML Functions: query_to_xml": supported
+    "XML Functions: cursor_to_xml": supported
+    "XML Functions: table_to_xmlschema": supported
+    "XML Functions: query_to_xmlschema": supported
+    "XML Functions: cursor_to_xmlschema": supported
+    "XML Functions: table_to_xml_and_xmlschema": supported
+    "XML Functions: query_to_xml_and_xmlschema": supported
+    "XML Functions: schema_to_xml": supported
+    "XML Functions: schema_to_xmlschema": supported
+    "XML Functions: schema_to_xml_and_xmlschema": supported
+    "XML Functions: database_to_xml": supported
+    "XML Functions: database_to_xmlschema": supported
+    "XML Functions: database_to_xml_and_xmlschema": supported
+    "json and jsonb Operators: json -> integer": supported
+    "json and jsonb Operators: jsonb -> integer": supported
+    "json and jsonb Operators: json -> text": supported
+    "json and jsonb Operators: jsonb -> text": supported
+    "json and jsonb Operators: json ->> integer": supported
+    "json and jsonb Operators: jsonb ->> integer": supported
+    "json and jsonb Operators: json ->> text": supported
+    "json and jsonb Operators: jsonb ->> text": supported
+    "json and jsonb Operators: json #> text[]": supported
+    "json and jsonb Operators: jsonb #> text[]": supported
+    "json and jsonb Operators: json #>> text[]": supported
+    "json and jsonb Operators: jsonb #>> text[]": supported
+    "Additional jsonb Operators: jsonb @> jsonb": supported
+    "Additional jsonb Operators: jsonb <@ jsonb": supported
+    "Additional jsonb Operators: jsonb ? text": supported
+    "Additional jsonb Operators: jsonb ?| text[]": supported
+    "Additional jsonb Operators: jsonb ?& text[]": supported
+    "Additional jsonb Operators: jsonb || jsonb": supported
+    "Additional jsonb Operators: jsonb - text": supported
+    "Additional jsonb Operators: jsonb - text[]": supported
+    "Additional jsonb Operators: jsonb - integer": supported
+    "Additional jsonb Operators: jsonb #- text[]": supported
+    "Additional jsonb Operators: jsonb @? jsonpath": supported
+    "Additional jsonb Operators: jsonb @@ jsonpath": supported
+    "JSON Creation Functions: to_json": supported
+    "JSON Creation Functions: to_jsonb": supported
+    "JSON Creation Functions: array_to_json": supported
+    "JSON Creation Functions: json_array": supported
+    "JSON Creation Functions: row_to_json": supported
+    "JSON Creation Functions: json_build_array": supported
+    "JSON Creation Functions: jsonb_build_array": supported
+    "JSON Creation Functions: json_build_object": supported
+    "JSON Creation Functions: jsonb_build_object": supported
+    "JSON Creation Functions: json_object": supported
+    "JSON Creation Functions: jsonb_object": supported
+    "JSON Creation Functions: json": supported
+    "JSON Creation Functions: json_scalar": supported
+    "JSON Creation Functions: json_serialize": supported
+    "JSON Processing Functions: json_array_elements": supported
+    "JSON Processing Functions: jsonb_array_elements": supported
+    "JSON Processing Functions: json_array_elements_text": supported
+    "JSON Processing Functions: jsonb_array_elements_text": supported
+    "JSON Processing Functions: json_array_length": supported
+    "JSON Processing Functions: jsonb_array_length": supported
+    "JSON Processing Functions: json_each": supported
+    "JSON Processing Functions: jsonb_each": supported
+    "JSON Processing Functions: json_each_text": supported
+    "JSON Processing Functions: jsonb_each_text": supported
+    "JSON Processing Functions: json_extract_path": supported
+    "JSON Processing Functions: jsonb_extract_path": supported
+    "JSON Processing Functions: json_extract_path_text": supported
+    "JSON Processing Functions: jsonb_extract_path_text": supported
+    "JSON Processing Functions: json_object_keys": supported
+    "JSON Processing Functions: jsonb_object_keys": supported
+    "JSON Processing Functions: json_populate_record": supported
+    "JSON Processing Functions: jsonb_populate_record": supported
+    "JSON Processing Functions: jsonb_populate_record_valid": supported
+    "JSON Processing Functions: json_populate_recordset": supported
+    "JSON Processing Functions: jsonb_populate_recordset": supported
+    "JSON Processing Functions: json_to_record": supported
+    "JSON Processing Functions: jsonb_to_record": supported
+    "JSON Processing Functions: json_to_recordset": supported
+    "JSON Processing Functions: jsonb_to_recordset": supported
+    "JSON Processing Functions: jsonb_set": supported
+    "JSON Processing Functions: jsonb_set_lax": supported
+    "JSON Processing Functions: jsonb_insert": supported
+    "JSON Processing Functions: json_strip_nulls": supported
+    "JSON Processing Functions: jsonb_strip_nulls": supported
+    "JSON Processing Functions: jsonb_path_exists": supported
+    "JSON Processing Functions: jsonb_path_match": supported
+    "JSON Processing Functions: jsonb_path_query": supported
+    "JSON Processing Functions: jsonb_path_query_array": supported
+    "JSON Processing Functions: jsonb_path_query_first": supported
+    "JSON Processing Functions: jsonb_path_exists_tz": supported
+    "JSON Processing Functions: jsonb_path_match_tz": supported
+    "JSON Processing Functions: jsonb_path_query_tz": supported
+    "JSON Processing Functions: jsonb_path_query_array_tz": supported
+    "JSON Processing Functions: jsonb_path_query_first_tz": supported
+    "JSON Processing Functions: jsonb_pretty": supported
+    "JSON Processing Functions: json_typeof": supported
+    "JSON Processing Functions: jsonb_typeof": supported
+    "SQL/JSON Query Functions: json_exists": supported
+    "SQL/JSON Query Functions: json_query": supported
+    "SQL/JSON Query Functions: json_value": supported
+    "SQL/JSON Query Functions: json_table": supported
+    "Sequence Functions: nextval": supported
+    "Sequence Functions: setval": supported
+    "Sequence Functions: currval": supported
+    "Sequence Functions: lastval": supported
+    "Conditional Expressions: case": supported
+    "Conditional Expressions: coalesce": supported
+    "Conditional Expressions: nullif": supported
+    "Conditional Expressions: greatest": supported
+    "Conditional Expressions: least": supported
+    "Array Operators: anyarray @> anyarray": supported
+    "Array Operators: anyarray <@ anyarray": supported
+    "Array Operators: anyarray && anyarray": supported
+    "Array Operators: anycompatiblearray || anycompatiblearray": supported
+    "Array Operators: anycompatible || anycompatiblearray": supported
+    "Array Operators: anycompatiblearray || anycompatible": supported
+    "Array Functions: array_append": supported
+    "Array Functions: array_cat": supported
+    "Array Functions: array_dims": supported
+    "Array Functions: array_fill": supported
+    "Array Functions: array_length": supported
+    "Array Functions: array_lower": supported
+    "Array Functions: array_ndims": supported
+    "Array Functions: array_position": supported
+    "Array Functions: array_positions": supported
+    "Array Functions: array_prepend": supported
+    "Array Functions: array_remove": supported
+    "Array Functions: array_replace": supported
+    "Array Functions: array_sample": supported
+    "Array Functions: array_shuffle": supported
+    "Array Functions: array_to_string": supported
+    "Array Functions: array_upper": supported
+    "Array Functions: cardinality": supported
+    "Array Functions: trim_array": supported
+    "Array Functions: unnest": supported
+    "Range Operators: anyrange @> anyrange": supported
+    "Range Operators: anyrange @> anyelement": supported
+    "Range Operators: anyrange <@ anyrange": supported
+    "Range Operators: anyelement <@ anyrange": supported
+    "Range Operators: anyrange && anyrange": supported
+    "Range Operators: anyrange << anyrange": supported
+    "Range Operators: anyrange >> anyrange": supported
+    "Range Operators: anyrange &< anyrange": supported
+    "Range Operators: anyrange &> anyrange": supported
+    "Range Operators: anyrange -|- anyrange": supported
+    "Range Operators: anyrange + anyrange": supported
+    "Range Operators: anyrange * anyrange": supported
+    "Range Operators: anyrange - anyrange": supported
+    "Multirange Operators: anymultirange @> anymultirange": supported
+    "Multirange Operators: anymultirange @> anyrange": supported
+    "Multirange Operators: anymultirange @> anyelement": supported
+    "Multirange Operators: anyrange @> anymultirange": supported
+    "Multirange Operators: anymultirange <@ anymultirange": supported
+    "Multirange Operators: anymultirange <@ anyrange": supported
+    "Multirange Operators: anyrange <@ anymultirange": supported
+    "Multirange Operators: anyelement <@ anymultirange": supported
+    "Multirange Operators: anymultirange && anymultirange": supported
+    "Multirange Operators: anymultirange && anyrange": supported
+    "Multirange Operators: anyrange && anymultirange": supported
+    "Multirange Operators: anymultirange << anymultirange": supported
+    "Multirange Operators: anymultirange << anyrange": supported
+    "Multirange Operators: anyrange << anymultirange": supported
+    "Multirange Operators: anymultirange >> anymultirange": supported
+    "Multirange Operators: anymultirange >> anyrange": supported
+    "Multirange Operators: anyrange >> anymultirange": supported
+    "Multirange Operators: anymultirange &< anymultirange": supported
+    "Multirange Operators: anymultirange &< anyrange": supported
+    "Multirange Operators: anyrange &< anymultirange": supported
+    "Multirange Operators: anymultirange &> anymultirange": supported
+    "Multirange Operators: anymultirange &> anyrange": supported
+    "Multirange Operators: anyrange &> anymultirange": supported
+    "Multirange Operators: anymultirange -|- anyrange": supported
+    "Multirange Operators: anymultirange + anyrange": supported
+    "Multirange Operators: anymultirange * anyrange": supported
+    "Multirange Operators: anymultirange - anyrange": supported
+    "Range Functions: lower": supported
+    "Range Functions: upper": supported
+    "Range Functions: isempty": supported
+    "Range Functions: lower_inc": supported
+    "Range Functions: upper_inc": supported
+    "Range Functions: lower_inf": supported
+    "Range Functions: upper_inf": supported
+    "Range Functions: range_merge": supported
+    "Multirange Functions: lower": supported
+    "Multirange Functions: upper": supported
+    "Multirange Functions: isempty": supported
+    "Multirange Functions: lower_inc": supported
+    "Multirange Functions: upper_inc": supported
+    "Multirange Functions: lower_inf": supported
+    "Multirange Functions: upper_inf": supported
+    "Multirange Functions: range_merge": supported
+    "Multirange Functions: multirange": supported
+    "Multirange Functions: unnest": supported
+    "General-Purpose Aggregate Functions: any_value": supported
+    "General-Purpose Aggregate Functions: array_agg": supported
+    "General-Purpose Aggregate Functions: avg": supported
+    "General-Purpose Aggregate Functions: bit_and": supported
+    "General-Purpose Aggregate Functions: bit_or": supported
+    "General-Purpose Aggregate Functions: bit_xor": supported
+    "General-Purpose Aggregate Functions: bool_and": supported
+    "General-Purpose Aggregate Functions: bool_or": supported
+    "General-Purpose Aggregate Functions: count": supported
+    "General-Purpose Aggregate Functions: every": supported
+    "General-Purpose Aggregate Functions: json_agg": supported
+    "General-Purpose Aggregate Functions: json_agg_strict": supported
+    "General-Purpose Aggregate Functions: json_arrayagg": supported
+    "General-Purpose Aggregate Functions: json_objectagg": supported
+    "General-Purpose Aggregate Functions: json_object_agg": supported
+    "General-Purpose Aggregate Functions: json_object_agg_strict": supported
+    "General-Purpose Aggregate Functions: json_object_agg_unique": supported
+    "General-Purpose Aggregate Functions: json_object_agg_unique_strict": supported
+    "General-Purpose Aggregate Functions: max": supported
+    "General-Purpose Aggregate Functions: min": supported
+    "General-Purpose Aggregate Functions: range_agg": supported
+    "General-Purpose Aggregate Functions: range_intersect_agg": supported
+    "General-Purpose Aggregate Functions: string_agg": supported
+    "General-Purpose Aggregate Functions: sum": supported
+    "General-Purpose Aggregate Functions: xmlagg": supported
+    "Aggregate Functions for Statistics: corr": supported
+    "Aggregate Functions for Statistics: covar_pop": supported
+    "Aggregate Functions for Statistics: covar_samp": supported
+    "Aggregate Functions for Statistics: regr_avgx": supported
+    "Aggregate Functions for Statistics: regr_avgy": supported
+    "Aggregate Functions for Statistics: regr_count": supported
+    "Aggregate Functions for Statistics: regr_intercept": supported
+    "Aggregate Functions for Statistics: regr_r2": supported
+    "Aggregate Functions for Statistics: regr_slope": supported
+    "Aggregate Functions for Statistics: regr_sxx": supported
+    "Aggregate Functions for Statistics: regr_sxy": supported
+    "Aggregate Functions for Statistics: regr_syy": supported
+    "Aggregate Functions for Statistics: stddev": supported
+    "Aggregate Functions for Statistics: stddev_pop": supported
+    "Aggregate Functions for Statistics: stddev_samp": supported
+    "Aggregate Functions for Statistics: variance": supported
+    "Aggregate Functions for Statistics: var_pop": supported
+    "Aggregate Functions for Statistics: var_samp": supported
+    "Ordered-Set Aggregate Functions: mode": supported
+    "Ordered-Set Aggregate Functions: percentile_cont": supported
+    "Ordered-Set Aggregate Functions: percentile_disc": supported
+    "Hypothetical-Set Aggregate Functions: rank": supported
+    "Hypothetical-Set Aggregate Functions: dense_rank": supported
+    "Hypothetical-Set Aggregate Functions: percent_rank": supported
+    "Hypothetical-Set Aggregate Functions: cume_dist": supported
+    "Grouping Operations: grouping": supported
+    "General-Purpose Window Functions: row_number": supported
+    "General-Purpose Window Functions: rank": supported
+    "General-Purpose Window Functions: dense_rank": supported
+    "General-Purpose Window Functions: percent_rank": supported
+    "General-Purpose Window Functions: cume_dist": supported
+    "General-Purpose Window Functions: ntile": supported
+    "General-Purpose Window Functions: lag": supported
+    "General-Purpose Window Functions: lead": supported
+    "General-Purpose Window Functions: first_value": supported
+    "General-Purpose Window Functions: last_value": supported
+    "General-Purpose Window Functions: nth_value": supported
+    "Merge Support Functions: merge_action": supported
+    "Subquery Expressions: exists": supported
+    "Subquery Expressions: in": supported
+    "Subquery Expressions: not in": supported
+    "Subquery Expressions: any/some": supported
+    "Subquery Expressions: all": supported
+    "Series Generating Functions: generate_series": supported
+    "Subscript Generating Functions: generate_subscripts": supported
+    "Session Information Functions: current_catalog": supported
+    "Session Information Functions: current_database()": supported
+    "Session Information Functions: current_query": supported
+    "Session Information Functions: current_role": supported
+    "Session Information Functions: current_schema": supported
+    "Session Information Functions: current_schemas": supported
+    "Session Information Functions: current_user": supported
+    "Session Information Functions: inet_client_addr": supported
+    "Session Information Functions: inet_client_port": supported
+    "Session Information Functions: inet_server_addr": supported
+    "Session Information Functions: inet_server_port": supported
+    "Session Information Functions: pg_backend_pid": supported
+    "Session Information Functions: pg_blocking_pids": supported
+    "Session Information Functions: pg_conf_load_time": supported
+    "Session Information Functions: pg_current_logfile": supported
+    "Session Information Functions: pg_my_temp_schema": supported
+    "Session Information Functions: pg_is_other_temp_schema": supported
+    "Session Information Functions: pg_jit_available": supported
+    "Session Information Functions: pg_listening_channels": supported
+    "Session Information Functions: pg_notification_queue_usage": supported
+    "Session Information Functions: pg_postmaster_start_time": supported
+    "Session Information Functions: pg_safe_snapshot_blocking_pids": supported
+    "Session Information Functions: pg_trigger_depth": supported
+    "Session Information Functions: session_user": supported
+    "Session Information Functions: system_user": supported
+    "Session Information Functions: user": supported
+    "Access Privilege Inquiry Functions: has_any_column_privilege": supported
+    "Access Privilege Inquiry Functions: has_column_privilege": supported
+    "Access Privilege Inquiry Functions: has_database_privilege": supported
+    "Access Privilege Inquiry Functions: has_foreign_data_wrapper_privilege": supported
+    "Access Privilege Inquiry Functions: has_function_privilege": supported
+    "Access Privilege Inquiry Functions: has_language_privilege": supported
+    "Access Privilege Inquiry Functions: has_parameter_privilege": supported
+    "Access Privilege Inquiry Functions: has_schema_privilege": supported
+    "Access Privilege Inquiry Functions: has_sequence_privilege": supported
+    "Access Privilege Inquiry Functions: has_server_privilege": supported
+    "Access Privilege Inquiry Functions: has_table_privilege": supported
+    "Access Privilege Inquiry Functions: has_tablespace_privilege": supported
+    "Access Privilege Inquiry Functions: has_type_privilege": supported
+    "Access Privilege Inquiry Functions: pg_has_role": supported
+    "Access Privilege Inquiry Functions: row_security_active": supported
+    "_aclitem_ Operators: aclitem = aclitem": supported
+    "_aclitem_ Operators: aclitem[] @> aclitem": supported
+    "_aclitem_ Operators: aclitem[] ~ aclitem": supported
+    "_aclitem_ Functions: acldefault": supported
+    "_aclitem_ Functions: aclexplode": supported
+    "_aclitem_ Functions: makeaclitem": supported
+    "Schema Visibility Inquiry Functions: pg_collation_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_conversion_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_function_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_opclass_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_operator_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_opfamily_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_statistics_obj_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_table_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_ts_config_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_ts_dict_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_ts_parser_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_ts_template_is_visible": supported
+    "Schema Visibility Inquiry Functions: pg_type_is_visible": supported
+    "System Catalog Information Functions: format_type": supported
+    "System Catalog Information Functions: pg_basetype": supported
+    "System Catalog Information Functions: pg_char_to_encoding": supported
+    "System Catalog Information Functions: pg_encoding_to_char": supported
+    "System Catalog Information Functions: pg_get_catalog_foreign_keys": supported
+    "System Catalog Information Functions: pg_get_constraintdef": supported
+    "System Catalog Information Functions: pg_get_expr": supported
+    "System Catalog Information Functions: pg_get_functiondef": supported
+    "System Catalog Information Functions: pg_get_function_arguments": supported
+    "System Catalog Information Functions: pg_get_function_identity_arguments": supported
+    "System Catalog Information Functions: pg_get_function_result": supported
+    "System Catalog Information Functions: pg_get_indexdef": supported
+    "System Catalog Information Functions: pg_get_keywords": supported
+    "System Catalog Information Functions: pg_get_partkeydef": supported
+    "System Catalog Information Functions: pg_get_ruledef": supported
+    "System Catalog Information Functions: pg_get_serial_sequence": supported
+    "System Catalog Information Functions: pg_get_statisticsobjdef": supported
+    "System Catalog Information Functions: pg_get_triggerdef": supported
+    "System Catalog Information Functions: pg_get_userbyid": supported
+    "System Catalog Information Functions: pg_get_viewdef": supported
+    "System Catalog Information Functions: pg_index_column_has_property": supported
+    "System Catalog Information Functions: pg_index_has_property": supported
+    "System Catalog Information Functions: pg_indexam_has_property": supported
+    "System Catalog Information Functions: pg_options_to_table": supported
+    "System Catalog Information Functions: pg_settings_get_flags": supported
+    "System Catalog Information Functions: pg_tablespace_databases": supported
+    "System Catalog Information Functions: pg_tablespace_location": supported
+    "System Catalog Information Functions: pg_typeof": supported
+    "System Catalog Information Functions: COLLATION FOR": supported
+    "System Catalog Information Functions: to_regclass": supported
+    "System Catalog Information Functions: to_regcollation": supported
+    "System Catalog Information Functions: to_regnamespace": supported
+    "System Catalog Information Functions: to_regoper": supported
+    "System Catalog Information Functions: to_regoperator": supported
+    "System Catalog Information Functions: to_regproc": supported
+    "System Catalog Information Functions: to_regprocedure": supported
+    "System Catalog Information Functions: to_regrole": supported
+    "System Catalog Information Functions: to_regtype": supported
+    "System Catalog Information Functions: to_regtypemod": supported
+    "Object Information and Addressing Functions: pg_describe_object": supported
+    "Object Information and Addressing Functions: pg_identify_object": supported
+    "Object Information and Addressing Functions: pg_identify_object_as_address": supported
+    "Object Information and Addressing Functions: pg_get_object_address": supported
+    "Comment Information Functions: col_description": supported
+    "Comment Information Functions: obj_description": supported
+    "Comment Information Functions: shobj_description": supported
+    "Data Validity Checking Functions: pg_input_is_valid": supported
+    "Data Validity Checking Functions: pg_input_error_info": supported
+    "Transaction ID and Snapshot Information Functions: pg_current_xact_id": supported
+    "Transaction ID and Snapshot Information Functions: pg_current_xact_id_if_assigned": supported
+    "Transaction ID and Snapshot Information Functions: pg_xact_status": supported
+    "Transaction ID and Snapshot Information Functions: pg_current_snapshot": supported
+    "Transaction ID and Snapshot Information Functions: pg_snapshot_xip": supported
+    "Transaction ID and Snapshot Information Functions: pg_snapshot_xmax": supported
+    "Transaction ID and Snapshot Information Functions: pg_snapshot_xmin": supported
+    "Transaction ID and Snapshot Information Functions: pg_visible_in_snapshot": supported
+    "Committed Transaction Information Functions: pg_xact_commit_timestamp": supported
+    "Committed Transaction Information Functions: pg_xact_commit_timestamp_origin": supported
+    "Committed Transaction Information Functions: pg_last_committed_xact": supported
+    "Control Data Functions: pg_control_checkpoint": supported
+    "Control Data Functions: pg_control_system": supported
+    "Control Data Functions: pg_control_init": supported
+    "Control Data Functions: pg_control_recovery": supported
+    "Version Information Functions: version": supported
+    "Version Information Functions: unicode_version": supported
+    "Version Information Functions: icu_unicode_version": supported
+    "WAL Summarization Information Functions: pg_available_wal_summaries": supported
+    "WAL Summarization Information Functions: pg_wal_summary_contents": supported
+    "WAL Summarization Information Functions: pg_get_wal_summarizer_state": supported
+    "Configuration Settings Functions: current_setting": supported
+    "Configuration Settings Functions: set_config": supported
+    "Server Signaling Functions: pg_cancel_backend": supported
+    "Server Signaling Functions: pg_log_backend_memory_contexts": supported
+    "Server Signaling Functions: pg_reload_conf": supported
+    "Server Signaling Functions: pg_rotate_logfile": supported
+    "Server Signaling Functions: pg_terminate_backend": supported
+    "Backup Control Functions: pg_create_restore_point": supported
+    "Backup Control Functions: pg_current_wal_flush_lsn": supported
+    "Backup Control Functions: pg_current_wal_insert_lsn": supported
+    "Backup Control Functions: pg_current_wal_lsn": supported
+    "Backup Control Functions: pg_backup_start": supported
+    "Backup Control Functions: pg_backup_stop": supported
+    "Backup Control Functions: pg_switch_wal": supported
+    "Backup Control Functions: pg_walfile_name": supported
+    "Backup Control Functions: pg_walfile_name_offset": supported
+    "Backup Control Functions: pg_split_walfile_name": supported
+    "Backup Control Functions: pg_wal_lsn_diff": supported
+    "Recovery Information Functions: pg_is_in_recovery": supported
+    "Recovery Information Functions: pg_last_wal_receive_lsn": supported
+    "Recovery Information Functions: pg_last_wal_replay_lsn": supported
+    "Recovery Information Functions: pg_last_xact_replay_timestamp": supported
+    "Recovery Information Functions: pg_get_wal_resource_managers": supported
+    "Recovery Control Functions: pg_is_wal_replay_paused": supported
+    "Recovery Control Functions: pg_get_wal_replay_pause_state": supported
+    "Recovery Control Functions: pg_promote": supported
+    "Recovery Control Functions: pg_wal_replay_pause": supported
+    "Recovery Control Functions: pg_wal_replay_resume": supported
+    "Snapshot Synchronization Functions: pg_export_snapshot": supported
+    "Snapshot Synchronization Functions: pg_log_standby_snapshot": supported
+    "Replication Management Functions: pg_create_physical_replication_slot": supported
+    "Replication Management Functions: pg_drop_replication_slot": supported
+    "Replication Management Functions: pg_create_logical_replication_slot": supported
+    "Replication Management Functions: pg_copy_physical_replication_slot": supported
+    "Replication Management Functions: pg_copy_logical_replication_slot": supported
+    "Replication Management Functions: pg_logical_slot_get_changes": supported
+    "Replication Management Functions: pg_logical_slot_peek_changes": supported
+    "Replication Management Functions: pg_logical_slot_get_binary_changes": supported
+    "Replication Management Functions: pg_logical_slot_peek_binary_changes": supported
+    "Replication Management Functions: pg_replication_slot_advance": supported
+    "Replication Management Functions: pg_replication_origin_create": supported
+    "Replication Management Functions: pg_replication_origin_drop": supported
+    "Replication Management Functions: pg_replication_origin_oid": supported
+    "Replication Management Functions: pg_replication_origin_session_setup": supported
+    "Replication Management Functions: pg_replication_origin_session_reset": supported
+    "Replication Management Functions: pg_replication_origin_session_is_setup": supported
+    "Replication Management Functions: pg_replication_origin_session_progress": supported
+    "Replication Management Functions: pg_replication_origin_xact_setup": supported
+    "Replication Management Functions: pg_replication_origin_xact_reset": supported
+    "Replication Management Functions: pg_replication_origin_advance": supported
+    "Replication Management Functions: pg_replication_origin_progress": supported
+    "Replication Management Functions: pg_logical_emit_message": supported
+    "Replication Management Functions: pg_sync_replication_slots": supported
+    "Database Object Size Functions: pg_column_size": supported
+    "Database Object Size Functions: pg_column_compression": supported
+    "Database Object Size Functions: pg_column_toast_chunk_id": supported
+    "Database Object Size Functions: pg_database_size": supported
+    "Database Object Size Functions: pg_indexes_size": supported
+    "Database Object Size Functions: pg_relation_size": supported
+    "Database Object Size Functions: pg_size_bytes": supported
+    "Database Object Size Functions: pg_size_pretty": supported
+    "Database Object Size Functions: pg_table_size": supported
+    "Database Object Size Functions: pg_tablespace_size": supported
+    "Database Object Size Functions: pg_total_relation_size": supported
+    "Database Object Location Functions: pg_relation_filenode": supported
+    "Database Object Location Functions: pg_relation_filepath": supported
+    "Database Object Location Functions: pg_filenode_relation": supported
+    "Collation Management Functions: pg_collation_actual_version": supported
+    "Collation Management Functions: pg_database_collation_actual_version": supported
+    "Collation Management Functions: pg_import_system_collations": supported
+    "Partitioning Information Functions: pg_partition_tree": supported
+    "Partitioning Information Functions: pg_partition_ancestors": supported
+    "Partitioning Information Functions: pg_partition_root": supported
+    "Index Maintenance Functions: brin_summarize_new_values": supported
+    "Index Maintenance Functions: brin_summarize_range": supported
+    "Index Maintenance Functions: brin_desummarize_range": supported
+    "Index Maintenance Functions: gin_clean_pending_list": supported
+    "Generic File Access Functions: pg_ls_dir": supported
+    "Generic File Access Functions: pg_ls_logdir": supported
+    "Generic File Access Functions: pg_ls_waldir": supported
+    "Generic File Access Functions: pg_ls_logicalmapdir": supported
+    "Generic File Access Functions: pg_ls_logicalsnapdir": supported
+    "Generic File Access Functions: pg_ls_replslotdir": supported
+    "Generic File Access Functions: pg_ls_archive_statusdir": supported
+    "Generic File Access Functions: pg_ls_tmpdir": supported
+    "Generic File Access Functions: pg_read_file": supported
+    "Generic File Access Functions: pg_read_binary_file": supported
+    "Generic File Access Functions: pg_stat_file": supported
+    "Advisory Lock Functions: pg_advisory_lock": supported
+    "Advisory Lock Functions: pg_advisory_lock_shared": supported
+    "Advisory Lock Functions: pg_advisory_unlock": supported
+    "Advisory Lock Functions: pg_advisory_unlock_all": supported
+    "Advisory Lock Functions: pg_advisory_unlock_shared": supported
+    "Advisory Lock Functions: pg_advisory_xact_lock": supported
+    "Advisory Lock Functions: pg_advisory_xact_lock_shared": supported
+    "Advisory Lock Functions: pg_try_advisory_lock": supported
+    "Advisory Lock Functions: pg_try_advisory_lock_shared": supported
+    "Advisory Lock Functions: pg_try_advisory_xact_lock": supported
+    "Advisory Lock Functions: pg_try_advisory_xact_lock_shared": supported
+    "Built-In Trigger Functions: suppress_redundant_updates_trigger": supported
+    "Built-In Trigger Functions: tsvector_update_trigger": supported
+    "Built-In Trigger Functions: tsvector_update_trigger_column": supported
+    "Event Trigger Functions: pg_event_trigger_ddl_commands": supported
+    "Event Trigger Functions: pg_event_trigger_dropped_objects": supported
+    "Event Trigger Functions: pg_event_trigger_table_rewrite_oid": supported
+    "Event Trigger Functions: pg_event_trigger_table_rewrite_reason": supported
+    "Statistics Information Functions: pg_mcv_list_items": supported
+    "Statistics Access Functions: pg_stat_get_db_numbackends": supported
+    "Statistics Access Functions: pg_stat_get_db_xact_commit": supported
+    "Statistics Access Functions: pg_stat_get_db_xact_rollback": supported
+    "Statistics Access Functions: pg_stat_get_db_blocks_fetched": supported
+    "Statistics Access Functions: pg_stat_get_db_blocks_hit": supported
+    "Statistics Access Functions: pg_stat_get_db_tuples_returned": supported
+    "Statistics Access Functions: pg_stat_get_db_tuples_fetched": supported
+    "Statistics Access Functions: pg_stat_get_db_tuples_inserted": supported
+    "Statistics Access Functions: pg_stat_get_db_tuples_updated": supported
+    "Statistics Access Functions: pg_stat_get_db_tuples_deleted": supported
+    "Statistics Access Functions: pg_stat_get_db_conflict_tablespace": supported
+    "Statistics Access Functions: pg_stat_get_db_conflict_lock": supported
+    "Statistics Access Functions: pg_stat_get_db_conflict_snapshot": supported
+    "Statistics Access Functions: pg_stat_get_db_conflict_bufferpin": supported
+    "Statistics Access Functions: pg_stat_get_db_conflict_startup_deadlock": supported
+    "Statistics Access Functions: pg_stat_get_db_stat_reset_time": supported
+    "Statistics Access Functions: pg_stat_get_numscans": supported
+    "Statistics Access Functions: pg_stat_get_tuples_returned": supported
+    "Statistics Access Functions: pg_stat_get_tuples_fetched": supported
+    "Statistics Access Functions: pg_stat_get_tuples_inserted": supported
+    "Statistics Access Functions: pg_stat_get_tuples_updated": supported
+    "Statistics Access Functions: pg_stat_get_tuples_deleted": supported
+    "Statistics Access Functions: pg_stat_get_tuples_hot_updated": supported
+    "Statistics Access Functions: pg_stat_get_live_tuples": supported
+    "Statistics Access Functions: pg_stat_get_dead_tuples": supported
+    "Statistics Access Functions: pg_stat_get_blocks_fetched": supported
+    "Statistics Access Functions: pg_stat_get_blocks_hit": supported
+    "Statistics Access Functions: pg_stat_get_last_vacuum_time": supported
+    "Statistics Access Functions: pg_stat_get_last_autovacuum_time": supported
+    "Statistics Access Functions: pg_stat_get_last_analyze_time": supported
+    "Statistics Access Functions: pg_stat_get_last_autoanalyze_time": supported
+    "Statistics Access Functions: pg_stat_get_vacuum_count": supported
+    "Statistics Access Functions: pg_stat_get_autovacuum_count": supported
+    "Statistics Access Functions: pg_stat_get_analyze_count": supported
+    "Statistics Access Functions: pg_stat_get_autoanalyze_count": supported
+    "Statistics Access Functions: pg_stat_get_xact_numscans": supported
+    "Statistics Access Functions: pg_stat_get_xact_tuples_returned": supported
+    "Statistics Access Functions: pg_stat_get_xact_tuples_fetched": supported
+    "Statistics Access Functions: pg_stat_get_xact_tuples_inserted": supported
+    "Statistics Access Functions: pg_stat_get_xact_tuples_updated": supported
+    "Statistics Access Functions: pg_stat_get_xact_tuples_deleted": supported
+    "Statistics Access Functions: pg_stat_get_xact_tuples_hot_updated": supported
+    "Statistics Access Functions: pg_stat_get_xact_blocks_fetched": supported
+    "Statistics Access Functions: pg_stat_get_xact_blocks_hit": supported
+    "Statistics Access Functions: pg_backend_pid": supported
+    "Statistics Access Functions: pg_stat_get_activity": supported
+    "Statistics Access Functions: pg_stat_get_function_calls": supported
+    "Statistics Access Functions: pg_stat_get_function_time": supported
+    "Statistics Access Functions: pg_stat_get_function_self_time": supported
+    "Statistics Access Functions: pg_stat_get_xact_function_calls": supported
+    "Statistics Access Functions: pg_stat_get_xact_function_time": supported
+    "Statistics Access Functions: pg_stat_get_xact_function_self_time": supported
+    "Statistics Access Functions: pg_stat_get_backend_idset": supported
+    "Statistics Access Functions: pg_stat_get_backend_pid": supported
+    "Statistics Access Functions: pg_stat_get_backend_dbid": supported
+    "Statistics Access Functions: pg_stat_get_backend_userid": supported
+    "Statistics Access Functions: pg_stat_get_backend_activity": supported
+    "Statistics Access Functions: pg_stat_get_backend_waiting": supported
+    "Statistics Access Functions: pg_stat_get_backend_activity_start": supported
+    "Statistics Access Functions: pg_stat_get_backend_xact_start": supported
+    "Statistics Access Functions: pg_stat_get_backend_start": supported
+    "Statistics Access Functions: pg_stat_get_backend_client_addr": supported
+    "Statistics Access Functions: pg_stat_get_backend_client_port": supported
+    "Statistics Access Functions: pg_stat_get_bgwriter_timed_checkpoints": supported
+    "Statistics Access Functions: pg_stat_get_bgwriter_requested_checkpoints": supported
+    "Statistics Access Functions: pg_stat_get_bgwriter_buf_written_checkpoints": supported
+    "Statistics Access Functions: pg_stat_get_bgwriter_buf_written_clean": supported
+    "Statistics Access Functions: pg_stat_get_bgwriter_maxwritten_clean": supported
+    "Statistics Access Functions: pg_stat_get_bgwriter_stat_reset_time": supported
+    "Statistics Access Functions: pg_stat_get_buf_written_backend": supported
+    "Statistics Access Functions: pg_stat_get_buf_alloc": supported
+    "Statistics Access Functions: pg_stat_get_wal_senders": supported
+    "Statistics Access Functions: pg_stat_clear_snapshot": supported
+    "Statistics Access Functions: pg_stat_reset": supported
+    "Statistics Access Functions: pg_stat_reset_shared": supported
+    "Statistics Access Functions: pg_stat_reset_single_table_counters": supported
+    "Statistics Access Functions: pg_stat_reset_single_function_counters": supported
+  catalog.table:
+    "pg_aggregate": supported
+    "pg_am": supported
+    "pg_amop": supported
+    "pg_amproc": supported
+    "pg_attrdef": supported
+    "pg_attribute": supported
+    "pg_auth_members": supported
+    "pg_authid": supported
+    "pg_cast": supported
+    "pg_class": supported
+    "pg_collation": supported
+    "pg_constraint": supported
+    "pg_conversion": supported
+    "pg_database": supported
+    "pg_db_role_setting": supported
+    "pg_default_acl": supported
+    "pg_depend": supported
+    "pg_description": supported
+    "pg_enum": supported
+    "pg_event_trigger": supported
+    "pg_extension": supported
+    "pg_foreign_data_wrapper": supported
+    "pg_foreign_server": supported
+    "pg_foreign_table": supported
+    "pg_index": supported
+    "pg_inherits": supported
+    "pg_init_privs": supported
+    "pg_language": supported
+    "pg_largeobject": supported
+    "pg_largeobject_metadata": supported
+    "pg_namespace": supported
+    "pg_opclass": supported
+    "pg_operator": supported
+    "pg_opfamily": supported
+    "pg_parameter_acl": supported
+    "pg_partitioned_table": supported
+    "pg_policy": supported
+    "pg_proc": supported
+    "pg_publication": supported
+    "pg_publication_namespace": supported
+    "pg_publication_rel": supported
+    "pg_range": supported
+    "pg_replication_origin": supported
+    "pg_rewrite": supported
+    "pg_seclabel": supported
+    "pg_sequence": supported
+    "pg_shdepend": supported
+    "pg_shdescription": supported
+    "pg_shseclabel": supported
+    "pg_statistic": supported
+    "pg_statistic_ext": supported
+    "pg_statistic_ext_data": supported
+    "pg_subscription": supported
+    "pg_subscription_rel": supported
+    "pg_tablespace": supported
+    "pg_transform": supported
+    "pg_trigger": supported
+    "pg_ts_config": supported
+    "pg_ts_config_map": supported
+    "pg_ts_dict": supported
+    "pg_ts_parser": supported
+    "pg_ts_template": supported
+    "pg_type": supported
+    "pg_user_mapping": supported
+    "pg_available_extension_versions": supported
+    "pg_available_extensions": supported
+    "pg_backend_memory_contexts": supported
+    "pg_config": supported
+    "pg_cursors": supported
+    "pg_file_settings": supported
+    "pg_group": supported
+    "pg_hba_file_rules": supported
+    "pg_ident_file_mappings": supported
+    "pg_indexes": supported
+    "pg_locks": supported
+    "pg_matviews": supported
+    "pg_policies": supported
+    "pg_prepared_statements": supported
+    "pg_prepared_xacts": supported
+    "pg_publication_tables": supported
+    "pg_replication_origin_status": supported
+    "pg_replication_slots": supported
+    "pg_roles": supported
+    "pg_rules": supported
+    "pg_seclabels": supported
+    "pg_sequences": supported
+    "pg_settings": supported
+    "pg_shadow": supported
+    "pg_shmem_allocations": supported
+    "pg_stat_activity": supported
+    "pg_stat_all_indexes": supported
+    "pg_stat_all_tables": supported
+    "pg_stat_archiver": supported
+    "pg_stat_bgwriter": supported
+    "pg_stat_database": supported
+    "pg_stat_database_conflicts": supported
+    "pg_stat_gssapi": supported
+    "pg_stat_io": supported
+    "pg_stat_progress_analyze": supported
+    "pg_stat_progress_basebackup": supported
+    "pg_stat_progress_cluster": supported
+    "pg_stat_progress_copy": supported
+    "pg_stat_progress_create_index": supported
+    "pg_stat_progress_vacuum": supported
+    "pg_stat_recovery_prefetch": supported
+    "pg_stat_replication": supported
+    "pg_stat_replication_slots": supported
+    "pg_stat_slru": supported
+    "pg_stat_ssl": supported
+    "pg_stat_subscription": supported
+    "pg_stat_subscription_stats": supported
+    "pg_stat_sys_indexes": supported
+    "pg_stat_sys_tables": supported
+    "pg_stat_user_functions": supported
+    "pg_stat_user_indexes": supported
+    "pg_stat_user_tables": supported
+    "pg_stat_wal": supported
+    "pg_stat_wal_receiver": supported
+    "pg_stat_xact_all_tables": supported
+    "pg_stat_xact_sys_tables": supported
+    "pg_stat_xact_user_functions": supported
+    "pg_stat_xact_user_tables": supported
+    "pg_statio_all_indexes": supported
+    "pg_statio_all_sequences": supported
+    "pg_statio_all_tables": supported
+    "pg_statio_sys_indexes": supported
+    "pg_statio_sys_sequences": supported
+    "pg_statio_sys_tables": supported
+    "pg_statio_user_indexes": supported
+    "pg_statio_user_sequences": supported
+    "pg_statio_user_tables": supported
+    "pg_stats": supported
+    "pg_stats_ext": supported
+    "pg_stats_ext_exprs": supported
+    "pg_tables": supported
+    "pg_timezone_abbrevs": supported
+    "pg_timezone_names": supported
+    "pg_user": supported
+    "pg_user_mappings": supported
+    "pg_views": supported
+  client.driver:
+    "psql": supported
+    "pgJDBC": supported
+    "R2DBC PostgreSQL": supported
+    "node-postgres (pg)": supported
+    "Knex.js": supported
+    "Drizzle ORM": supported
+    "psycopg2": supported
+    "SQLAlchemy": supported
+    "pgx": supported
+    "lib/pq": supported
+    "libpq": supported
+    "libaprutil (apr_dbd)": supported
+    "libdbi": supported
+    "libpqxx": supported
+    "psqlODBC": supported
+    "DBD::Pg": supported
+    "pg (Ruby)": supported
+    "Sequel": supported
+    "ActiveRecord": supported
+    "pgsql (pg_connect)": supported
+    "PDO_PGSQL": supported
+    "RPostgres": supported
+    "RPostgreSQL": supported
+    "sqlx": supported
+    "Npgsql": supported
+    "Postgrex": supported
+    "PostgresNIO": supported
+  txn.isolation:
+    "read committed": supported
+    "repeatable read": supported
+    "serializable": supported

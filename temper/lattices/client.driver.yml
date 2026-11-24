@@ -1,0 +1,36 @@
+id: client.driver
+description: >
+  Every client on Doltgres's supported-clients page
+  (reference/sql/supported-clients, dolthub/docs-2 @73d0e0b53f1e), plus psql,
+  which the README uses. Each runs its standard flow: connect, prepare, bind
+  every supported type, run a transaction, read back equal values.
+applies_to: database
+requires: [compatibility]
+members:
+  - {key: psql}
+  - {key: pgJDBC}
+  - {key: R2DBC PostgreSQL}
+  - {key: node-postgres (pg)}
+  - {key: Knex.js}
+  - {key: Drizzle ORM}
+  - {key: psycopg2}
+  - {key: SQLAlchemy}
+  - {key: pgx}
+  - {key: lib/pq}
+  - {key: libpq}
+  - {key: libaprutil (apr_dbd)}
+  - {key: libdbi}
+  - {key: libpqxx}
+  - {key: psqlODBC}
+  - {key: "DBD::Pg"}
+  - {key: pg (Ruby)}
+  - {key: Sequel}
+  - {key: ActiveRecord}
+  - {key: pgsql (pg_connect)}
+  - {key: PDO_PGSQL}
+  - {key: RPostgres}
+  - {key: RPostgreSQL}
+  - {key: sqlx}
+  - {key: Npgsql}
+  - {key: Postgrex}
+  - {key: PostgresNIO}
