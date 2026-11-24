@@ -150,10 +150,9 @@ branch has its permission row, and no failed creation left one.
 - Doltgres 1.5.3 and main pass: about 1,270 commits, 650 merges, 365 branch
   creations and 7-8 interrupted operations each; nothing lost, changed or
   half-done.
-- Two observations, not crash effects (a run with no crashes shows the
+- One observation, not a crash effect (a run with no crashes shows the
   same): `dolt.commits` omits commits no branch reaches (about 150 per run),
-  though its docs say it "shows ALL commits"; and a deleted branch keeps its
-  `dolt_branch_control` row. The second belongs to the security family.
+  though its docs say it "shows ALL commits".
 
 **Doltgres main** is built from this checkout by
 `temper/recipe/build_main.sh` (its binary reports 1.5.2, so the map

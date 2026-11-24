@@ -338,9 +338,6 @@ def check(subject):
     log(f"operations {s['ops']}; interrupted {s['unknown']}; commits returned {len(s['commits'])}; branches {len(branches)}")
     log(f"in-run violations {len(v)}; lost commits {lost}; changed {changed}; unreadable heads {unreadable}; "
         f"branches without a permission row {orphan_branches}; rows for never-created branches {leaked_rows}")
-    deleted_rows = sorted(n for n in s["deleted"] if n in controlled)
-    if deleted_rows:
-        log(f"note: deleted branches keep their permission rows ({len(deleted_rows)}), as without crashes")
     if (s["unknown"] == 0 and not os.environ.get("NO_CRASH_CONTROL")) or s["ops"].get("merge", 0) < 5:
         raise SystemExit("no crash interrupted an operation, or too few merges ran: the run tests nothing")
     out = {
