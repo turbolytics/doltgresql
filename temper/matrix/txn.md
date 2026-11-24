@@ -6,7 +6,7 @@
 
 **8 features, 10 invariants and 1 lattice in group `txn`.**
 
-✅ 26 covered · ❌ 8 failing · ⬜ 26 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 22 covered · ❌ 12 failing · ⬜ 26 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -20,10 +20,14 @@ a failure. Regenerate with `temper matrix`.
 
 | Status | Kind | Item | Subject | Level | Note |
 | --- | --- | --- | --- | --- | --- |
+| ❌ failing | invariant | `txn.no_lost_update` | `doltgres.main` | `concurrency` |  |
+| ❌ failing | invariant | `txn.no_lost_update` | `doltgres.release` | `concurrency` |  |
 | ❌ failing | invariant | `txn.no_read_skew` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | invariant | `txn.no_read_skew` | `doltgres.release` | `concurrency` |  |
 | ❌ failing | invariant | `txn.no_write_skew` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | invariant | `txn.no_write_skew` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | lattice | `txn.isolation/read committed` | `doltgres.main` | `concurrency` |  |
+| ❌ failing | lattice | `txn.isolation/read committed` | `doltgres.release` | `concurrency` |  |
 | ❌ failing | lattice | `txn.isolation/repeatable read` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | lattice | `txn.isolation/repeatable read` | `doltgres.release` | `concurrency` |  |
 | ❌ failing | lattice | `txn.isolation/serializable` | `doltgres.main` | `concurrency` |  |
@@ -86,7 +90,7 @@ Where a row names several levels, each cell shows one mark per level, in that or
 | [`txn.no_circular_info`](#inv-txn.no_circular_info) | transactions | `concurrency` | ✅ | ✅ | ✅ |
 | [`txn.no_dirty_read`](#inv-txn.no_dirty_read) | transactions | `concurrency` | ✅ | ✅ | ✅ |
 | [`txn.no_dirty_write`](#inv-txn.no_dirty_write) | transactions | `concurrency` | ✅ | ✅ | ✅ |
-| [`txn.no_lost_update`](#inv-txn.no_lost_update) | transactions | `concurrency` | ✅ | ✅ | ✅ |
+| [`txn.no_lost_update`](#inv-txn.no_lost_update) | transactions | `concurrency` | ❌ | ❌ | ✅ |
 | [`txn.no_read_skew`](#inv-txn.no_read_skew) | transactions | `concurrency` | ❌ | ❌ | ✅ |
 | [`txn.no_write_skew`](#inv-txn.no_write_skew) | transactions | `concurrency` | ❌ | ❌ | ✅ |
 | [`txn.visible_after_commit`](#inv-txn.visible_after_commit) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
@@ -112,7 +116,7 @@ The isolation levels PostgreSQL defines (postgresql.org/docs/current/transaction
 
 | Member | `doltgres.main` | `doltgres.release` | `postgres.reference` |
 | --- | --- | --- | --- |
-| `read committed` | ✅ | ✅ | ✅ |
+| `read committed` | ❌ | ❌ | ✅ |
 | `repeatable read` | ❌ | ❌ | ✅ |
 | `serializable` | ❌ | ❌ | ✅ |
 

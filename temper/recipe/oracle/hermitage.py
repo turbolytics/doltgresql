@@ -355,6 +355,29 @@ def g2_two_edges(r):
     return ok(c1)
 
 
+def cross_column(r):
+    """Two updates to one row, each filtering on the column the other writes.
+    T1 closes an account while its balance is 0; T2 deposits while it is open.
+    PostgreSQL's read committed makes T2 wait and re-check its WHERE against
+    the newest row (it then matches nothing); repeatable read and serializable
+    fail one with 40001. No serial order ends closed with the deposit in it.
+    (dolthub/doltgresql#3617 fixed the same-column case.)"""
+    with psycopg.connect(**r.conninfo, autocommit=True) as c:
+        c.execute("DROP TABLE IF EXISTS acct")
+        c.execute("CREATE TABLE acct (id int PRIMARY KEY, status text NOT NULL, balance int NOT NULL)")
+        c.execute("INSERT INTO acct VALUES (1, 'open', 0)")
+    r.begin("T1"); r.begin("T2")
+    r.do("T1", "UPDATE acct SET status = 'closed' WHERE id = 1 AND balance = 0")
+    a = r.do("T2", "UPDATE acct SET balance = balance + 100 WHERE id = 1 AND status = 'open'")
+    c1 = r.do("T1", "COMMIT")
+    a = r.result("T2", a)
+    c2 = r.result("T2", r.do("T2", "COMMIT")) if ok(a) else None
+    r.final()
+    with psycopg.connect(**r.conninfo, autocommit=True) as c:
+        final = c.execute("SELECT status, balance FROM acct WHERE id = 1").fetchone()
+    return ok(c1) and ok(c2) and tuple(final) == ("closed", 100)
+
+
 # test, the anomaly, the levels that must prevent it, the invariant it decides
 TESTS = [
     (g0, "G0", [RC, RR, SER], "txn.no_dirty_write"),
@@ -363,6 +386,7 @@ TESTS = [
     (g1c, "G1c", [RC, RR, SER], "txn.no_circular_info"),
     (otv, "OTV", [RC, RR, SER], None),
     (p4_increment, "P4 (UPDATE value = value + 1)", [RC, RR, SER], "txn.no_lost_update"),
+    (cross_column, "Lost update across columns (#3617)", [RC, RR, SER], "txn.no_lost_update"),
     (pmp, "PMP", [RR, SER], None),
     (pmp_write, "PMP (write predicate)", [RR, SER], None),
     (p4, "P4", [RR, SER], "txn.no_lost_update"),

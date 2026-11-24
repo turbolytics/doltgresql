@@ -74,6 +74,13 @@ which commits succeeded and the final state.
 - Doltgres 1.5.3 prevents every anomaly read committed must prevent. It
   behaves as snapshot isolation at every level: it also prevents lost
   updates and read skew, and allows write skew (G2-item and G2).
+- Lost update across columns (the remainder of dolthub/doltgresql#3617):
+  T1 closes an account `WHERE balance = 0` while T2 deposits `WHERE status =
+  'open'`. PostgreSQL makes T2 wait and re-check its row at read committed
+  (the deposit then matches nothing) and fails one with 40001 at repeatable
+  read and serializable. Doltgres 1.5.3 and main commit both at every level
+  and end `closed, 100`, a state no serial order produces. #3887 fixed the
+  same-column case; row-level locking (#3915, open) targets this one.
 - Doltgres accepts `BEGIN ISOLATION LEVEL SERIALIZABLE` and `REPEATABLE
   READ`, reports `read committed`, and runs snapshot isolation. A client that
   asks for serializable gets write skew. This is by design
