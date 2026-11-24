@@ -1,0 +1,36 @@
+# Version control in SQL, against a model of Dolt's documented semantics.
+#
+#   temper scenarios run --scenario vc.model --build
+#
+- id: vc.model
+  runner: temper
+  name: Commits, branches, merges, resets, reverts and cherry-picks match a model of Dolt's docs
+  description: >
+    A seeded sequence of the operations users run (writes, dolt_commit,
+    dolt_branch, dolt_checkout, dolt_merge with conflicts resolved --ours or
+    --theirs, dolt_reset --hard, dolt_revert, dolt_cherry_pick), 4 seeds of
+    200 steps, runs against the subject and against a model of the documented
+    semantics: snapshots keyed by primary key, a three-way cell-wise merge
+    (concepts/git/conflicts), fast-forward when the target is an ancestor.
+    The working table must equal the model after every operation; every
+    commit read AS OF its hash must equal its snapshot; dolt_diff between
+    sampled commits must list exactly the rows that differ. A negative control
+    (the model merging row-wise, which the docs rule out) reports violations,
+    so the oracle tells the two apart. The run fails if a merge, a conflicted
+    merge, a fast-forward, a reset, a revert or a cherry-pick never ran.
+  compose: temper/compose.yml
+  subjects:
+    doltgres.release: {doltgres_release: 1}
+    doltgres.main: {doltgres_main: 1}
+  covers: [vc.merge_no_silent_loss, vc.history_immutable, vc.diff_complete, vc.reset_restores, vc.revert_inverse,
+           vc.commit, vc.as_of, vc.branch.create, vc.checkout, vc.merge.fast_forward, vc.conflicts,
+           vc.conflicts_resolve, vc.cherry_pick, vc.reset.hard, vc.revert, vc.diff_fn]
+  events:
+    - up: {$subject: true}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 180s}
+    - check:
+        results:
+          vc_model: ["{subject}", "4", "200"]
+          decides: [vc.merge_no_silent_loss, vc.history_immutable, vc.diff_complete, vc.reset_restores, vc.revert_inverse,
+                    vc.commit, vc.as_of, vc.branch.create, vc.checkout, vc.merge.fast_forward, vc.conflicts,
+                    vc.conflicts_resolve, vc.cherry_pick, vc.reset.hard, vc.revert, vc.diff_fn]

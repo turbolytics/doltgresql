@@ -8,6 +8,11 @@ services:
   doltgres_release:
     image: dolthub/doltgresql:1.5.3
     environment: {DOLTGRES_PASSWORD: password}
+  doltgres_main:
+    # Built once from this checkout by temper/recipe/build_main.sh, not by
+    # --build: a from-source build leaves gigabytes of Go cache per project.
+    image: doltgres-main-source
+    environment: {DOLTGRES_PASSWORD: password}
   oracle:
     build: {context: recipe/oracle}
     image: doltgres-recipe-oracle

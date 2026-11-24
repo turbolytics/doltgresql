@@ -99,13 +99,39 @@ checked as serializable, finds G2-item.
   read-skew and write-skew claims by its docs, and Hermitage proves (or, as
   now, fails to prove) its refusals.
 
-Doltgres main is declared but has no image yet, so its cells are missing.
+**Versioning: a model of Dolt's docs** (`vc.model`, oracle
+`temper/recipe/oracle/vc_model.py`). A seeded sequence of the operations
+users run (writes, dolt_commit, dolt_branch, dolt_checkout, dolt_merge with
+conflicts resolved --ours or --theirs, dolt_reset --hard, dolt_revert,
+dolt_cherry_pick) runs against Doltgres and against a model of the documented
+semantics: snapshots keyed by primary key, a three-way cell-wise merge, and a
+fast-forward when the target is an ancestor. The working table must equal the
+model after every operation; every commit read AS OF its hash must equal its
+snapshot; dolt_diff between sampled commits must list exactly the rows that
+differ. A negative control (the model merging row-wise, which the docs rule
+out) reports violations, so the oracle can tell the two apart.
+
+- Doltgres 1.5.3 and main both match the model: 4 seeds of 200 steps each,
+  about 240 commits and 46 merges per subject (24 of them conflicted), with
+  every commit's AS OF and every sampled diff exact. The 5 versioning
+  invariants and 11 operations are covered on both.
+
+**Doltgres main** is built from this checkout by
+`temper/recipe/build_main.sh` (its binary reports 1.5.2, so the map
+identifies it by commit). It matches 1.5.3 on every check so far, including
+the silent serializable.
+
 Everything else is declared and not yet tested.
 
 ## Regenerating
 
 With Temper v0.1.9 or later (the matrix splits into an index and group pages):
 
+    sh temper/recipe/build_main.sh        # the doltgres.main image, once
     temper check
-    temper run --level concurrency -- temper scenarios run --build
+    temper clean
+    temper run --level concurrency -- temper scenarios run --scenario txn.hermitage --build
+    temper run --level concurrency -- temper scenarios run --scenario txn.elle
+    temper run --level concurrency -- temper scenarios run --scenario txn.elle_strict
+    temper run --level versioning -- temper scenarios run --scenario vc.model
     temper matrix --all-levels

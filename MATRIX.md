@@ -4,7 +4,7 @@
 
 **178 features and 47 invariants on 3 subjects, at levels `conformance`, `concurrency`, `versioning`, `faults`, `compatibility`, `security` and `operations`.**
 
-✅ 14 covered · ❌ 4 failing · ⬜ 4716 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 40 covered · ❌ 8 failing · ⬜ 4686 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -33,8 +33,8 @@ A group is the first segment of an id: `txn` holds every `txn.` feature, invaria
 | [`schema`](temper/matrix/schema.md) | 30 | 5 | 0 | 0 | 0 | 57 | 0 | 0 | 0 |
 | [`server`](temper/matrix/server.md) | 10 | 2 | 0 | 0 | 0 | 23 | 0 | 0 | 0 |
 | [`sql`](temper/matrix/sql.md) | 0 | 1 | 3 | 0 | 0 | 3840 | 0 | 0 | 0 |
-| [`txn`](temper/matrix/txn.md) | 8 | 10 | 1 | 14 | 4 | 42 | 0 | 0 | 0 |
-| [`vc`](temper/matrix/vc.md) | 63 | 12 | 0 | 0 | 0 | 110 | 0 | 0 | 0 |
+| [`txn`](temper/matrix/txn.md) | 8 | 10 | 1 | 19 | 8 | 33 | 0 | 0 | 0 |
+| [`vc`](temper/matrix/vc.md) | 63 | 12 | 0 | 21 | 0 | 89 | 0 | 0 | 0 |
 
 ## Needs attention
 
@@ -42,7 +42,11 @@ Failing cells, from every group. Each group's page lists its missing and unenfor
 
 | Status | Kind | Item | Subject | Level | Note |
 | --- | --- | --- | --- | --- | --- |
+| ❌ failing | invariant | `txn.no_read_skew` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | invariant | `txn.no_read_skew` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | invariant | `txn.no_write_skew` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | invariant | `txn.no_write_skew` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | lattice | `txn.isolation/repeatable read` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | lattice | `txn.isolation/repeatable read` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | lattice | `txn.isolation/serializable` | `doltgres.main` | `concurrency` |  |
 | ❌ failing | lattice | `txn.isolation/serializable` | `doltgres.release` | `concurrency` |  |
