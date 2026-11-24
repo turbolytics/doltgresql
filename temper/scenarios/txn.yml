@@ -26,3 +26,49 @@
           hermitage: ["{subject}"]
           decides: [txn.no_dirty_write, txn.no_dirty_read, txn.no_circular_info, txn.no_lost_update, txn.no_read_skew, txn.no_write_skew, txn.isolation/*]
           exempts: [txn.no_read_skew, txn.no_write_skew, txn.isolation/*]
+
+- id: txn.elle
+  runner: temper
+  name: Under concurrent load, no subject shows dirty writes, dirty reads, circular reads or lost updates
+  description: >
+    Eight clients run short transactions of appends and reads on six hot
+    keys for 20 s per level, each recording its outcome: committed, aborted,
+    or unknown. Elle (jepsen-io/elle, via ligurio/elle-cli 0.1.11) checks
+    each level's history: read committed against read-committed, repeatable
+    read against snapshot isolation (PostgreSQL's repeatable read), and
+    serializable against serializable. Only anomalies the level must prevent
+    count. A level the subject declares unsupported is checked too if it is
+    accepted, since a client that asks for it gets it.
+  compose: temper/compose.yml
+  subjects:
+    postgres.reference: {postgres: 1}
+    doltgres.release: {doltgres_release: 1}
+  covers: [txn.no_dirty_write, txn.no_dirty_read, txn.no_circular_info, txn.no_lost_update, "txn.isolation/read committed"]
+  events:
+    - up: {$subject: true}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 120s}
+    - check:
+        results:
+          elle: ["{subject}", "20", common]
+          decides: [txn.no_dirty_write, txn.no_dirty_read, txn.no_circular_info, txn.no_lost_update, "txn.isolation/read committed"]
+
+- id: txn.elle_strict
+  runner: temper
+  name: Under concurrent load, repeatable read shows no read skew and serializable no write skew
+  description: >
+    The same workload and checker as txn.elle, at repeatable read (snapshot
+    isolation) and serializable, for the subjects that support them. A
+    negative control shows the workload can produce write skew Elle sees:
+    PostgreSQL's repeatable-read history, checked as serializable, finds
+    G2-item. Doltgres declares both levels unsupported and is exempt from
+    these claims; txn.hermitage proves its refusals.
+  compose: temper/compose.yml
+  subject: postgres.reference
+  covers: [txn.no_read_skew, txn.no_write_skew, "txn.isolation/repeatable read", txn.isolation/serializable]
+  events:
+    - up: {postgres: 1}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 120s}
+    - check:
+        results:
+          elle: ["{subject}", "20", strict]
+          decides: [txn.no_read_skew, txn.no_write_skew, "txn.isolation/repeatable read", txn.isolation/serializable]

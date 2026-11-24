@@ -82,6 +82,23 @@ which commits succeeded and the final state.
   model, and the declaration follows the docs: the two levels are answered
   unsupported, so they must be refused. The 4 failing cells are that gap.
 
+**Transactions: Elle** (`txn.elle`, `txn.elle_strict`, oracle
+`temper/recipe/oracle/elle_append.py`). Eight clients run short append and
+read transactions on six hot keys for 20 s per level, recording each outcome.
+Elle (jepsen-io/elle, via ligurio/elle-cli 0.1.11) checks each history
+against the level's model: read committed, snapshot isolation for
+repeatable read, serializable. A negative control shows the workload
+produces write skew Elle can see: PostgreSQL's repeatable-read history,
+checked as serializable, finds G2-item.
+
+- PostgreSQL 17 is valid at every level.
+- Doltgres 1.5.3 is valid at read committed (11,884 committed transactions)
+  and at repeatable read as snapshot isolation. At the serializable it
+  accepts, Elle finds G2-item: the same write skew Hermitage shows.
+- `txn.elle_strict` runs on PostgreSQL only. Doltgres is exempt from the
+  read-skew and write-skew claims by its docs, and Hermitage proves (or, as
+  now, fails to prove) its refusals.
+
 Doltgres main is declared but has no image yet, so its cells are missing.
 Everything else is declared and not yet tested.
 
