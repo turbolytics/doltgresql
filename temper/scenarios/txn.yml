@@ -74,3 +74,29 @@
         results:
           elle: ["{subject}", "20", strict]
           decides: [txn.no_read_skew, txn.no_write_skew, "txn.isolation/repeatable read", txn.isolation/serializable]
+
+- id: txn.cross_column
+  runner: temper
+  name: Two updates to one row, each filtering on the column the other writes, never both apply
+  description: >
+    The one-command repro for the lost update across columns (the remainder
+    of dolthub/doltgresql#3617). T1 runs UPDATE acct SET status = 'closed'
+    WHERE id = 1 AND balance = 0; T2 runs UPDATE acct SET balance = balance +
+    100 WHERE id = 1 AND status = 'open'; T1 commits, then T2. PostgreSQL's
+    read committed makes T2 wait for T1 and re-check its WHERE against the
+    new row, so it updates nothing and the account ends closed with 0. Ten
+    runs at read committed; any run that ends closed with 100, a state no
+    serial order produces, is a violation.
+  compose: temper/compose.yml
+  subjects:
+    postgres.reference: {db_postgres: 1}
+    doltgres.release: {db_release: 1}
+    doltgres.main: {db_main: 1}
+  covers: [txn.no_lost_update]
+  events:
+    - up: {$subject: true}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 180s}
+    - check:
+        results:
+          cross_column: ["{subject}", "10"]
+          decides: [txn.no_lost_update]
