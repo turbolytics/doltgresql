@@ -1,0 +1,28 @@
+# Transactions under concurrency, decided by outside authorities.
+#
+#   temper scenarios run --scenario txn.hermitage --build
+#
+- id: txn.hermitage
+  runner: temper
+  name: Each isolation level prevents the anomalies PostgreSQL's guarantees say it prevents
+  description: >
+    Martin Kleppmann's Hermitage scripts each anomaly, G0 to G2, as statements
+    from two or three sessions in a fixed order (github.com/ept/hermitage
+    @f029bec, postgres.md). The oracle runs every script at every isolation
+    level, one connection per session, and decides each anomaly from what the
+    sessions read, which commits succeeded and the final state, never from
+    whether a statement blocked. A level the subject declares unsupported
+    must be refused when requested; if it is accepted, its scripts still run.
+  compose: temper/compose.yml
+  subjects:
+    postgres.reference: {postgres: 1}
+    doltgres.release: {doltgres_release: 1}
+  covers: [txn.no_dirty_write, txn.no_dirty_read, txn.no_circular_info, txn.no_lost_update, txn.no_read_skew, txn.no_write_skew, "txn.isolation/read committed", "txn.isolation/repeatable read", txn.isolation/serializable]
+  events:
+    - up: {$subject: true}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 120s}
+    - check:
+        results:
+          hermitage: ["{subject}"]
+          decides: [txn.no_dirty_write, txn.no_dirty_read, txn.no_circular_info, txn.no_lost_update, txn.no_read_skew, txn.no_write_skew, txn.isolation/*]
+          exempts: [txn.no_read_skew, txn.no_write_skew, txn.isolation/*]

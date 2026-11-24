@@ -1467,13 +1467,13 @@ sql.unsupported_fails_clean: {conformance: missing, concurrency: not_required, v
 txn.atomic: {conformance: missing, concurrency: missing, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
 txn.bank_conserved: {conformance: not_required, concurrency: missing, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
 txn.constraints_under_race: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-"txn.isolation/read committed": {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-"txn.isolation/repeatable read": {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.isolation/serializable: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.no_circular_info: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.no_dirty_read: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.no_dirty_write: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.no_lost_update: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.no_read_skew: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.no_write_skew: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+"txn.isolation/read committed": {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+"txn.isolation/repeatable read": {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.isolation/serializable: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.no_circular_info: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.no_dirty_read: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.no_dirty_write: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.no_lost_update: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.no_read_skew: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
+txn.no_write_skew: {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 txn.visible_after_commit: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}

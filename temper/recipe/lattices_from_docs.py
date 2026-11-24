@@ -107,11 +107,26 @@ def hand_answers(sid):
         else:
             out += f"    {q(level)}:\n      unsupported: true\n"
             out += "      reason: \"The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another.\"\n"
-            out += f"      proven_by: {q(f'txn.isolation/{sid}/txn.isolation/{level}')}\n"
+            out += f"      proven_by: {q(f'txn.hermitage/{sid}/txn.isolation/{level}')}\n"
     return out
 
 
 HAND = {sid: hand_answers(sid) for sid in ["doltgres.release", "doltgres.main", "postgres.reference"]}
+
+
+EXEMPT = """exempt:
+  - invariant: txn.no_read_skew
+    reason: >
+      The claim is about repeatable read and serializable. The Doltgres docs
+      (concepts/sql/transaction) say Doltgres uses the Read Committed
+      transaction model, so it must refuse both levels when asked.
+    proven_by: txn.hermitage/{sid}/txn.no_read_skew
+  - invariant: txn.no_write_skew
+    reason: >
+      The claim is about serializable, which the Doltgres docs say Doltgres
+      does not offer, so it must refuse it when asked.
+    proven_by: txn.hermitage/{sid}/txn.no_write_skew
+"""
 
 
 SUBJECTS = {
@@ -132,6 +147,7 @@ def write_subjects(temper, answers, pg):
             f.write(f"id: {sid}\nkind: database\nfeature: {feature}\n")
             if versioned:
                 f.write("implements: [Versioned]\n")
+                f.write(EXEMPT.format(sid=sid))
             f.write("answers:\n")
             by_lattice = {}
             keys = answers[sid] if sid in answers else {k: ("supported", "") for k in pg}

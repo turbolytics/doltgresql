@@ -60,9 +60,30 @@ backups, restarts, client connections, and pg_dump restores.
 
 ## Status
 
-Declared, not yet tested: 4,734 cells, all missing. Cells fill as each
-family's scenarios land, highest risk first: transactions, versioning and
-durability.
+**Transactions: Hermitage** (`temper/scenarios/txn.yml`, oracle
+`temper/recipe/oracle/hermitage.py`). Martin Kleppmann's Hermitage scripts
+each anomaly, G0 to G2, as statements from two or three sessions
+(github.com/ept/hermitage @f029bec). The oracle runs all 15 scripts at all
+three isolation levels and decides each anomaly from what the sessions read,
+which commits succeeded and the final state.
+
+- PostgreSQL 17 reproduces Hermitage's table exactly, which validates the
+  oracle: read committed allows predicate reads, lost updates, read skew and
+  write skew; repeatable read allows only write skew; serializable prevents
+  all of them.
+- Doltgres 1.5.3 prevents every anomaly read committed must prevent. It
+  behaves as snapshot isolation at every level: it also prevents lost
+  updates and read skew, and allows write skew (G2-item and G2).
+- Doltgres accepts `BEGIN ISOLATION LEVEL SERIALIZABLE` and `REPEATABLE
+  READ`, reports `read committed`, and runs snapshot isolation. A client that
+  asks for serializable gets write skew. This is by design
+  (dolthub/doltgresql#3063: "accept transaction isolation levels, but always
+  use REPEATABLE READ"), but the docs say Doltgres uses the Read Committed
+  model, and the declaration follows the docs: the two levels are answered
+  unsupported, so they must be refused. The 4 failing cells are that gap.
+
+Doltgres main is declared but has no image yet, so its cells are missing.
+Everything else is declared and not yet tested.
 
 ## Regenerating
 

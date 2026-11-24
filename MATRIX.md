@@ -4,7 +4,7 @@
 
 **178 features and 47 invariants on 3 subjects, at levels `conformance`, `concurrency`, `versioning`, `faults`, `compatibility`, `security` and `operations`.**
 
-✅ 0 covered · ❌ 0 failing · ⬜ 4734 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 14 covered · ❌ 4 failing · ⬜ 4716 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -18,6 +18,10 @@ a failure. Regenerate with `temper matrix`.
 
 | Status | Kind | Item | Subject | Level | Note |
 | --- | --- | --- | --- | --- | --- |
+| ❌ failing | invariant | `txn.no_read_skew` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | invariant | `txn.no_write_skew` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | lattice | `txn.isolation/repeatable read` | `doltgres.release` | `concurrency` |  |
+| ❌ failing | lattice | `txn.isolation/serializable` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | feature | `access.branch_control` |  | `faults` |  |
 | ⬜ missing | feature | `access.branch_control` |  | `security` |  |
 | ⬜ missing | feature | `access.branch_namespace_control` |  | `security` |  |
@@ -351,23 +355,11 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | invariant | `txn.constraints_under_race` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.constraints_under_race` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.no_circular_info` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_circular_info` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_circular_info` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.no_dirty_read` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_dirty_read` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_dirty_read` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.no_dirty_write` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_dirty_write` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_dirty_write` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.no_lost_update` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_lost_update` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_lost_update` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.no_read_skew` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_read_skew` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_read_skew` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.no_write_skew` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_write_skew` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.no_write_skew` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.visible_after_commit` | `doltgres.main` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.visible_after_commit` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.visible_after_commit` | `postgres.reference` | `concurrency` |  |
@@ -4744,14 +4736,8 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | lattice | `sql.type/xml[]` | `doltgres.release` | `conformance` |  |
 | ⬜ missing | lattice | `sql.type/xml[]` | `postgres.reference` | `conformance` |  |
 | ⬜ missing | lattice | `txn.isolation/read committed` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | lattice | `txn.isolation/read committed` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | lattice | `txn.isolation/read committed` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | lattice | `txn.isolation/repeatable read` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | lattice | `txn.isolation/repeatable read` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | lattice | `txn.isolation/repeatable read` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | lattice | `txn.isolation/serializable` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | lattice | `txn.isolation/serializable` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | lattice | `txn.isolation/serializable` | `postgres.reference` | `concurrency` |  |
 
 ## Features
 
@@ -4976,12 +4962,12 @@ Where a row names several levels, each cell shows one mark per level, in that or
 | [`txn.atomic`](#inv-txn.atomic) | transactions | `conformance`, `concurrency`, `faults` | ⬜ ⬜ ⬜ | ⬜ ⬜ ⬜ | ⬜ ⬜ ⬜ |
 | [`txn.bank_conserved`](#inv-txn.bank_conserved) | transactions | `concurrency`, `faults` | ⬜ ⬜ | ⬜ ⬜ | ⬜ ⬜ |
 | [`txn.constraints_under_race`](#inv-txn.constraints_under_race) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
-| [`txn.no_circular_info`](#inv-txn.no_circular_info) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
-| [`txn.no_dirty_read`](#inv-txn.no_dirty_read) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
-| [`txn.no_dirty_write`](#inv-txn.no_dirty_write) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
-| [`txn.no_lost_update`](#inv-txn.no_lost_update) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
-| [`txn.no_read_skew`](#inv-txn.no_read_skew) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
-| [`txn.no_write_skew`](#inv-txn.no_write_skew) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
+| [`txn.no_circular_info`](#inv-txn.no_circular_info) | transactions | `concurrency` | ⬜ | ✅ | ✅ |
+| [`txn.no_dirty_read`](#inv-txn.no_dirty_read) | transactions | `concurrency` | ⬜ | ✅ | ✅ |
+| [`txn.no_dirty_write`](#inv-txn.no_dirty_write) | transactions | `concurrency` | ⬜ | ✅ | ✅ |
+| [`txn.no_lost_update`](#inv-txn.no_lost_update) | transactions | `concurrency` | ⬜ | ✅ | ✅ |
+| [`txn.no_read_skew`](#inv-txn.no_read_skew) | transactions | `concurrency` | ⬜ | ❌ | ✅ |
+| [`txn.no_write_skew`](#inv-txn.no_write_skew) | transactions | `concurrency` | ⬜ | ❌ | ✅ |
 | [`txn.visible_after_commit`](#inv-txn.visible_after_commit) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
 | [`vc.branch_isolated`](#inv-vc.branch_isolated) | versioning | `versioning`, `concurrency` | ⬜ ⬜ | ⬜ ⬜ | — |
 | [`vc.branch_ops_atomic`](#inv-vc.branch_ops_atomic) | versioning | `versioning`, `faults` | ⬜ ⬜ | ⬜ ⬜ | — |
@@ -6535,14 +6521,18 @@ The isolation levels PostgreSQL defines (postgresql.org/docs/current/transaction
 
 | Member | `doltgres.main` | `doltgres.release` | `postgres.reference` |
 | --- | --- | --- | --- |
-| `read committed` | ⬜ | ⬜ | ⬜ |
-| `repeatable read` | ⬜ | ⬜ | ⬜ |
-| `serializable` | ⬜ | ⬜ | ⬜ |
+| `read committed` | ⬜ | ✅ | ✅ |
+| `repeatable read` | ⬜ | ❌ | ✅ |
+| `serializable` | ⬜ | ❌ | ✅ |
 
 ## Exemptions and refusals
 
 Each ☑️ and ⛔, with the reason and the test that proves it.
 
+- `doltgres.main` × `txn.no_read_skew`: exempt. The claim is about repeatable read and serializable. The Doltgres docs (concepts/sql/transaction) say Doltgres uses the Read Committed transaction model, so it must refuse both levels when asked. Proven by `txn.hermitage/doltgres.main/txn.no_read_skew`.
+- `doltgres.main` × `txn.no_write_skew`: exempt. The claim is about serializable, which the Doltgres docs say Doltgres does not offer, so it must refuse it when asked. Proven by `txn.hermitage/doltgres.main/txn.no_write_skew`.
+- `doltgres.release` × `txn.no_read_skew`: exempt. The claim is about repeatable read and serializable. The Doltgres docs (concepts/sql/transaction) say Doltgres uses the Read Committed transaction model, so it must refuse both levels when asked. Proven by `txn.hermitage/doltgres.release/txn.no_read_skew`.
+- `doltgres.release` × `txn.no_write_skew`: exempt. The claim is about serializable, which the Doltgres docs say Doltgres does not offer, so it must refuse it when asked. Proven by `txn.hermitage/doltgres.release/txn.no_write_skew`.
 - `doltgres.main` × `catalog.table/pg_aggregate`: unsupported. The Doltgres docs mark it unsupported. Proven by `sql.support/doltgres.main/catalog.table/pg_aggregate`.
 - `doltgres.release` × `catalog.table/pg_aggregate`: unsupported. The Doltgres docs mark it unsupported. Proven by `sql.support/doltgres.release/catalog.table/pg_aggregate`.
 - `doltgres.main` × `catalog.table/pg_amop`: unsupported. The Doltgres docs mark it unsupported. Proven by `sql.support/doltgres.main/catalog.table/pg_amop`.
@@ -8419,7 +8409,7 @@ Each ☑️ and ⛔, with the reason and the test that proves it.
 - `doltgres.release` × `sql.type/regprocedure`: unsupported. The Doltgres docs mark it unsupported. Proven by `sql.support/doltgres.release/sql.type/regprocedure`.
 - `doltgres.main` × `sql.type/regrole`: unsupported. The Doltgres docs mark it unsupported. Proven by `sql.support/doltgres.main/sql.type/regrole`.
 - `doltgres.release` × `sql.type/regrole`: unsupported. The Doltgres docs mark it unsupported. Proven by `sql.support/doltgres.release/sql.type/regrole`.
-- `doltgres.main` × `txn.isolation/repeatable read`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.isolation/doltgres.main/txn.isolation/repeatable read`.
-- `doltgres.release` × `txn.isolation/repeatable read`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.isolation/doltgres.release/txn.isolation/repeatable read`.
-- `doltgres.main` × `txn.isolation/serializable`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.isolation/doltgres.main/txn.isolation/serializable`.
-- `doltgres.release` × `txn.isolation/serializable`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.isolation/doltgres.release/txn.isolation/serializable`.
+- `doltgres.main` × `txn.isolation/repeatable read`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.hermitage/doltgres.main/txn.isolation/repeatable read`.
+- `doltgres.release` × `txn.isolation/repeatable read`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.hermitage/doltgres.release/txn.isolation/repeatable read`.
+- `doltgres.main` × `txn.isolation/serializable`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.hermitage/doltgres.main/txn.isolation/serializable`.
+- `doltgres.release` × `txn.isolation/serializable`: unsupported. The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another. Proven by `txn.hermitage/doltgres.release/txn.isolation/serializable`.

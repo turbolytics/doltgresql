@@ -7,6 +7,18 @@ id: doltgres.main
 kind: database
 feature: server.doltgres
 implements: [Versioned]
+exempt:
+  - invariant: txn.no_read_skew
+    reason: >
+      The claim is about repeatable read and serializable. The Doltgres docs
+      (concepts/sql/transaction) say Doltgres uses the Read Committed
+      transaction model, so it must refuse both levels when asked.
+    proven_by: txn.hermitage/doltgres.main/txn.no_read_skew
+  - invariant: txn.no_write_skew
+    reason: >
+      The claim is about serializable, which the Doltgres docs say Doltgres
+      does not offer, so it must refuse it when asked.
+    proven_by: txn.hermitage/doltgres.main/txn.no_write_skew
 answers:
   sql.command:
     "ALTER TABLE": supported
@@ -4278,8 +4290,8 @@ answers:
     "repeatable read":
       unsupported: true
       reason: "The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another."
-      proven_by: "txn.isolation/doltgres.main/txn.isolation/repeatable read"
+      proven_by: "txn.hermitage/doltgres.main/txn.isolation/repeatable read"
     "serializable":
       unsupported: true
       reason: "The Doltgres docs (concepts/sql/transaction): Doltgres uses the Read Committed transaction model. Requesting this level must be refused, not silently run at another."
-      proven_by: "txn.isolation/doltgres.main/txn.isolation/serializable"
+      proven_by: "txn.hermitage/doltgres.main/txn.isolation/serializable"

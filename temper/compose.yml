@@ -1,0 +1,14 @@
+# One database per subject, and the oracle that runs the checks against it.
+# Each scenario starts only its subject's database.
+services:
+  postgres:
+    image: postgres:17
+    environment: {POSTGRES_PASSWORD: password}
+    healthcheck: {test: [CMD, pg_isready, -U, postgres], interval: 1s, retries: 60}
+  doltgres_release:
+    image: dolthub/doltgresql:1.5.3
+    environment: {DOLTGRES_PASSWORD: password}
+  oracle:
+    build: {context: recipe/oracle}
+    image: doltgres-recipe-oracle
+    volumes: ["./subjects:/temper/subjects:ro"]

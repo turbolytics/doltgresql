@@ -1,0 +1,3 @@
+commands:
+  ready: {doc: prints 1 once the subject's database answers, run: [oracle, python, ready.py]}
+  hermitage: {doc: Hermitage's isolation tests against the subject; prints the verdict JSON, run: [oracle, python, hermitage.py]}
