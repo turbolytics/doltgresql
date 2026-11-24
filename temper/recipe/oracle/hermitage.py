@@ -31,9 +31,9 @@ FINISH = 20      # seconds a blocked statement may take once unblocked
 LEVELS = ["read committed", "repeatable read", "serializable"]
 RC, RR, SER = LEVELS
 HOSTS = {
-    "postgres.reference": dict(host="postgres", user="postgres", password="password", dbname="postgres"),
-    "doltgres.release": dict(host="doltgres_release", user="postgres", password="password", dbname="postgres"),
-    "doltgres.main": dict(host="doltgres_main", user="postgres", password="password", dbname="postgres"),
+    "postgres.reference": dict(host="db_postgres", user="postgres", password="password", dbname="postgres"),
+    "doltgres.release": dict(host="db_release", user="postgres", password="password", dbname="postgres"),
+    "doltgres.main": dict(host="db_main", user="postgres", password="password", dbname="postgres"),
 }
 SETUP = ["DROP TABLE IF EXISTS test",
          "CREATE TABLE test (id int PRIMARY KEY, value int)",

@@ -6,7 +6,7 @@
 
 **9 features, 3 invariants and 1 lattice in group `client`.**
 
-✅ 0 covered · ❌ 0 failing · ⬜ 102 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 7 covered · ❌ 0 failing · ⬜ 95 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -24,7 +24,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `client.bind.typed` |  | `compatibility` |  |
 | ⬜ missing | feature | `client.bind.untyped` |  | `compatibility` |  |
 | ⬜ missing | feature | `client.connect` |  | `compatibility` |  |
-| ⬜ missing | feature | `client.connect` |  | `faults` |  |
 | ⬜ missing | feature | `client.copy.from` |  | `compatibility` |  |
 | ⬜ missing | feature | `client.copy.to` |  | `compatibility` |  |
 | ⬜ missing | feature | `client.error.fields` |  | `compatibility` |  |
@@ -32,15 +31,9 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `client.query.extended` |  | `faults` |  |
 | ⬜ missing | feature | `client.query.simple` |  | `compatibility` |  |
 | ⬜ missing | feature | `client.query.simple` |  | `faults` |  |
-| ⬜ missing | invariant | `client.clear_failure` | `doltgres.main` | `faults` |  |
-| ⬜ missing | invariant | `client.clear_failure` | `doltgres.release` | `faults` |  |
-| ⬜ missing | invariant | `client.clear_failure` | `postgres.reference` | `faults` |  |
 | ⬜ missing | invariant | `client.driver_standard_flow` | `doltgres.main` | `compatibility` |  |
 | ⬜ missing | invariant | `client.driver_standard_flow` | `doltgres.release` | `compatibility` |  |
 | ⬜ missing | invariant | `client.driver_standard_flow` | `postgres.reference` | `compatibility` |  |
-| ⬜ missing | invariant | `client.no_double_apply` | `doltgres.main` | `faults` |  |
-| ⬜ missing | invariant | `client.no_double_apply` | `doltgres.release` | `faults` |  |
-| ⬜ missing | invariant | `client.no_double_apply` | `postgres.reference` | `faults` |  |
 | ⬜ missing | lattice | `client.driver` | `doltgres.main` | `compatibility` | 27 members; see the lattice's table |
 | ⬜ missing | lattice | `client.driver` | `doltgres.release` | `compatibility` | 27 members; see the lattice's table |
 | ⬜ missing | lattice | `client.driver` | `postgres.reference` | `compatibility` | 27 members; see the lattice's table |
@@ -51,7 +44,7 @@ What the system does. Each feature is proven at the levels it requires.
 
 | Feature | What it does | `conformance` | `concurrency` | `versioning` | `faults` | `compatibility` | `security` | `operations` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `client.connect` | A client connects over the PostgreSQL wire protocol with password authentication. | — | — | — | ⬜ | ⬜ | — | — |
+| `client.connect` | A client connects over the PostgreSQL wire protocol with password authentication. | — | — | — | ✅ | ⬜ | — | — |
 | `client.query.simple` | The simple query protocol runs statements and returns rows. | — | — | — | ⬜ | ⬜ | — | — |
 | `client.query.extended` | The extended protocol prepares, binds and executes statements. | — | — | — | ⬜ | ⬜ | — | — |
 | `client.bind.typed` | Bind parameters with declared types are read as those types. | — | — | — | — | ⬜ | — | — |
@@ -69,9 +62,9 @@ What the system must never do, or must always do, for each subject it applies to
 
 | Invariant | Family | Levels | `doltgres.main` | `doltgres.release` | `postgres.reference` |
 | --- | --- | --- | --- | --- | --- |
-| [`client.clear_failure`](#inv-client.clear_failure) | durability | `faults` | ⬜ | ⬜ | ⬜ |
+| [`client.clear_failure`](#inv-client.clear_failure) | durability | `faults` | ✅ | ✅ | ✅ |
 | [`client.driver_standard_flow`](#inv-client.driver_standard_flow) | compatibility | `compatibility` | ⬜ | ⬜ | ⬜ |
-| [`client.no_double_apply`](#inv-client.no_double_apply) | durability | `faults` | ⬜ | ⬜ | ⬜ |
+| [`client.no_double_apply`](#inv-client.no_double_apply) | durability | `faults` | ✅ | ✅ | ✅ |
 
 - <a id="inv-client.clear_failure"></a>**`client.clear_failure`** · durability — With the server down or slow, a client gets an error within its timeout, never a hang.
 - <a id="inv-client.driver_standard_flow"></a>**`client.driver_standard_flow`** · compatibility — Each documented driver connects, prepares, binds every supported type, runs transactions and reads back equal values.

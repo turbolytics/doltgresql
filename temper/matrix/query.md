@@ -6,7 +6,7 @@
 
 **20 features, 2 invariants and 0 lattices in group `query`.**
 
-✅ 0 covered · ❌ 0 failing · ⬜ 29 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 2 covered · ❌ 0 failing · ⬜ 27 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -24,7 +24,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `query.delete.using` |  | `conformance` |  |
 | ⬜ missing | feature | `query.explain` |  | `conformance` |  |
 | ⬜ missing | feature | `query.insert` |  | `conformance` |  |
-| ⬜ missing | feature | `query.insert` |  | `faults` |  |
 | ⬜ missing | feature | `query.insert.select` |  | `conformance` |  |
 | ⬜ missing | feature | `query.returning` |  | `conformance` |  |
 | ⬜ missing | feature | `query.select.aggregate` |  | `conformance` |  |
@@ -36,7 +35,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `query.select.subquery` |  | `conformance` |  |
 | ⬜ missing | feature | `query.select.window` |  | `conformance` |  |
 | ⬜ missing | feature | `query.update` |  | `conformance` |  |
-| ⬜ missing | feature | `query.update` |  | `faults` |  |
 | ⬜ missing | feature | `query.update.from` |  | `conformance` |  |
 | ⬜ missing | feature | `query.upsert.nothing` |  | `conformance` |  |
 | ⬜ missing | feature | `query.upsert.update` |  | `conformance` |  |
@@ -65,9 +63,9 @@ What the system does. Each feature is proven at the levels it requires.
 | `query.select.set_ops` | UNION, INTERSECT and EXCEPT. | ⬜ | — | — | — | — | — | — |
 | `query.select.distinct` | DISTINCT and DISTINCT ON. | ⬜ | — | — | — | — | — | — |
 | `query.values` | VALUES lists. | ⬜ | — | — | — | — | — | — |
-| `query.insert` | INSERT of literal rows. | ⬜ | — | — | ⬜ | — | — | — |
+| `query.insert` | INSERT of literal rows. | ⬜ | — | — | ✅ | — | — | — |
 | `query.insert.select` | INSERT ... SELECT. | ⬜ | — | — | — | — | — | — |
-| `query.update` | UPDATE. | ⬜ | — | — | ⬜ | — | — | — |
+| `query.update` | UPDATE. | ⬜ | — | — | ✅ | — | — | — |
 | `query.update.from` | UPDATE ... FROM. | ⬜ | — | — | — | — | — | — |
 | `query.delete` | DELETE. | ⬜ | — | — | — | — | — | — |
 | `query.delete.using` | DELETE ... USING. | ⬜ | — | — | — | — | — | — |

@@ -6,7 +6,7 @@
 
 **8 features, 10 invariants and 1 lattice in group `txn`.**
 
-✅ 19 covered · ❌ 8 failing · ⬜ 33 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 26 covered · ❌ 8 failing · ⬜ 26 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -31,7 +31,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `txn.abort_on_error` |  | `conformance` |  |
 | ⬜ missing | feature | `txn.commit` |  | `concurrency` |  |
 | ⬜ missing | feature | `txn.commit` |  | `conformance` |  |
-| ⬜ missing | feature | `txn.commit` |  | `faults` |  |
 | ⬜ missing | feature | `txn.isolation.set` |  | `concurrency` |  |
 | ⬜ missing | feature | `txn.isolation.set` |  | `conformance` |  |
 | ⬜ missing | feature | `txn.rollback` |  | `concurrency` |  |
@@ -42,19 +41,13 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `txn.table_lock` |  | `concurrency` |  |
 | ⬜ missing | invariant | `txn.atomic` | `doltgres.main` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.atomic` | `doltgres.main` | `conformance` |  |
-| ⬜ missing | invariant | `txn.atomic` | `doltgres.main` | `faults` |  |
 | ⬜ missing | invariant | `txn.atomic` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.atomic` | `doltgres.release` | `conformance` |  |
-| ⬜ missing | invariant | `txn.atomic` | `doltgres.release` | `faults` |  |
 | ⬜ missing | invariant | `txn.atomic` | `postgres.reference` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.atomic` | `postgres.reference` | `conformance` |  |
-| ⬜ missing | invariant | `txn.atomic` | `postgres.reference` | `faults` |  |
 | ⬜ missing | invariant | `txn.bank_conserved` | `doltgres.main` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.bank_conserved` | `doltgres.main` | `faults` |  |
 | ⬜ missing | invariant | `txn.bank_conserved` | `doltgres.release` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.bank_conserved` | `doltgres.release` | `faults` |  |
 | ⬜ missing | invariant | `txn.bank_conserved` | `postgres.reference` | `concurrency` |  |
-| ⬜ missing | invariant | `txn.bank_conserved` | `postgres.reference` | `faults` |  |
 | ⬜ missing | invariant | `txn.constraints_under_race` | `doltgres.main` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.constraints_under_race` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | invariant | `txn.constraints_under_race` | `postgres.reference` | `concurrency` |  |
@@ -68,7 +61,7 @@ What the system does. Each feature is proven at the levels it requires.
 
 | Feature | What it does | `conformance` | `concurrency` | `versioning` | `faults` | `compatibility` | `security` | `operations` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `txn.commit` | BEGIN ... COMMIT makes a transaction's writes durable and visible together. | ⬜ | ⬜ | — | ⬜ | — | — | — |
+| `txn.commit` | BEGIN ... COMMIT makes a transaction's writes durable and visible together. | ⬜ | ⬜ | — | ✅ | — | — | — |
 | `txn.rollback` | ROLLBACK discards a transaction's writes. | ⬜ | ⬜ | — | — | — | — | — |
 | `txn.savepoint` | SAVEPOINT, RELEASE SAVEPOINT and ROLLBACK TO SAVEPOINT. | ⬜ | — | — | — | — | — | — |
 | `txn.isolation.set` | SET TRANSACTION and BEGIN ISOLATION LEVEL choose a level. | ⬜ | ⬜ | — | — | — | — | — |
@@ -87,8 +80,8 @@ Where a row names several levels, each cell shows one mark per level, in that or
 
 | Invariant | Family | Levels | `doltgres.main` | `doltgres.release` | `postgres.reference` |
 | --- | --- | --- | --- | --- | --- |
-| [`txn.atomic`](#inv-txn.atomic) | transactions | `conformance`, `concurrency`, `faults` | ⬜ ⬜ ⬜ | ⬜ ⬜ ⬜ | ⬜ ⬜ ⬜ |
-| [`txn.bank_conserved`](#inv-txn.bank_conserved) | transactions | `concurrency`, `faults` | ⬜ ⬜ | ⬜ ⬜ | ⬜ ⬜ |
+| [`txn.atomic`](#inv-txn.atomic) | transactions | `conformance`, `concurrency`, `faults` | ⬜ ⬜ ✅ | ⬜ ⬜ ✅ | ⬜ ⬜ ✅ |
+| [`txn.bank_conserved`](#inv-txn.bank_conserved) | transactions | `concurrency`, `faults` | ⬜ ✅ | ⬜ ✅ | ⬜ ✅ |
 | [`txn.constraints_under_race`](#inv-txn.constraints_under_race) | transactions | `concurrency` | ⬜ | ⬜ | ⬜ |
 | [`txn.no_circular_info`](#inv-txn.no_circular_info) | transactions | `concurrency` | ✅ | ✅ | ✅ |
 | [`txn.no_dirty_read`](#inv-txn.no_dirty_read) | transactions | `concurrency` | ✅ | ✅ | ✅ |

@@ -20,8 +20,8 @@
     merge, a fast-forward, a reset, a revert or a cherry-pick never ran.
   compose: temper/compose.yml
   subjects:
-    doltgres.release: {doltgres_release: 1}
-    doltgres.main: {doltgres_main: 1}
+    doltgres.release: {db_release: 1}
+    doltgres.main: {db_main: 1}
   covers: [vc.merge_no_silent_loss, vc.history_immutable, vc.diff_complete, vc.reset_restores, vc.revert_inverse,
            vc.commit, vc.as_of, vc.branch.create, vc.checkout, vc.merge.fast_forward, vc.conflicts,
            vc.conflicts_resolve, vc.cherry_pick, vc.reset.hard, vc.revert, vc.diff_fn]

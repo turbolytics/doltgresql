@@ -1,0 +1,45 @@
+# Durability and atomicity across kill -9.
+#
+#   temper scenarios run --scenario durability.crash --build
+#
+- id: durability.crash
+  runner: temper
+  name: Every acknowledged write survives kill -9, once, and every transaction is all or nothing
+  description: >
+    Three writers commit ledger inserts one at a time, three commit bank
+    transfers (two balance updates and a log row in one transaction), and on
+    Doltgres a fourth makes a Dolt commit every second. Each records every
+    outcome as it arrives. Meanwhile the database is killed with SIGKILL every
+    6-12 s for 50 s and started again 0.5-2.5 s later. Afterwards every
+    acknowledged insert is present exactly once, nothing unsent appears, no
+    failed statement left an effect, the bank total holds, every balance
+    equals the opening balance replayed through the log, every acknowledged
+    Dolt commit is in the log and holds every insert acknowledged before it,
+    and no operation took longer than 30 s. Work whose connection broke may
+    be present or absent, never twice. The run fails if the writers finish
+    before the crashes, or if no crash interrupted them.
+  compose: temper/compose.yml
+  subjects:
+    postgres.reference: {db_postgres: 1}
+    doltgres.release: {db_release: 1}
+    doltgres.main: {db_main: 1}
+  seed: 41
+  covers: [durability.commit_survives_crash, durability.no_partial_after_crash, client.no_double_apply,
+           txn.bank_conserved, txn.atomic, client.clear_failure,
+           txn.commit, query.insert, query.update, server.restart, client.connect]
+  events:
+    - up: {$subject: true}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 180s}
+    - durability: [setup, "{subject}"]
+    - hold: {name: writers, durability: [write, "{subject}", "70"]}
+    - sleep: 8s
+    - check: {covers: durability.commit_survives_crash, durability: [writing]}   # still writing, or the crashes test nothing
+    - chaos: {duration: 50s, every: 6s-12s, faults: [db.kill]}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 180s}
+    - wait_until: {durability: [writing], equals: "1", timeout: 5m}
+    - check:
+        results:
+          durability: [check, "{subject}"]
+          decides: [durability.commit_survives_crash, durability.no_partial_after_crash, client.no_double_apply,
+                    txn.bank_conserved, txn.atomic, client.clear_failure,
+                    txn.commit, query.insert, query.update, server.restart, client.connect]

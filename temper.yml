@@ -20,3 +20,10 @@ levels:
     description: Roles, grants and branch permissions.
   - name: operations
     description: Running it over time. Replication, backup and restore, garbage collection, upgrades.
+
+# The service pack's faults on whichever database the scenario runs: every
+# database service is named db_*. db.kill is kill -9, then a start.
+packs:
+  - pack: service
+    as: db
+    with: {target: "db_*"}

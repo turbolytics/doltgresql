@@ -6,7 +6,7 @@
 
 **10 features, 2 invariants and 0 lattices in group `server`.**
 
-✅ 0 covered · ❌ 0 failing · ⬜ 23 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 1 covered · ❌ 0 failing · ⬜ 22 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -28,7 +28,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `server.gc` |  | `faults` |  |
 | ⬜ missing | feature | `server.gc` |  | `operations` |  |
 | ⬜ missing | feature | `server.metrics` |  | `operations` |  |
-| ⬜ missing | feature | `server.restart` |  | `faults` |  |
 | ⬜ missing | feature | `server.restart` |  | `operations` |  |
 | ⬜ missing | feature | `server.start` |  | `faults` |  |
 | ⬜ missing | feature | `server.start` |  | `operations` |  |
@@ -56,7 +55,7 @@ What the system does. Each feature is proven at the levels it requires.
 | `server.docker` | The dolthub/doltgresql image runs the server with its documented environment. | — | — | — | — | — | — | ⬜ |
 | `server.database.create` | CREATE DATABASE makes a new database, each its own Dolt repository. | ⬜ | — | — | — | — | — | — |
 | `server.database.drop` | DROP DATABASE removes a database. | ⬜ | — | — | — | — | — | — |
-| `server.restart` | A clean restart keeps every committed change. | — | — | — | ⬜ | — | — | ⬜ |
+| `server.restart` | A clean restart keeps every committed change. | — | — | — | ✅ | — | — | ⬜ |
 | `server.gc` | dolt_gc() reclaims unreferenced storage. | — | — | — | ⬜ | — | — | ⬜ |
 | `server.metrics` | The server exports the metrics its docs list. | — | — | — | — | — | — | ⬜ |
 | `server.doltgres` | The Doltgres server a Doltgres subject runs: a release or a build of main. | — | — | — | — | — | — | — |

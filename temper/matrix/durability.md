@@ -6,7 +6,7 @@
 
 **0 features, 2 invariants and 0 lattices in group `durability`.**
 
-✅ 0 covered · ❌ 0 failing · ⬜ 6 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 6 covered · ❌ 0 failing · ⬜ 0 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -18,14 +18,7 @@ a failure. Regenerate with `temper matrix`.
 
 ## Needs attention
 
-| Status | Kind | Item | Subject | Level | Note |
-| --- | --- | --- | --- | --- | --- |
-| ⬜ missing | invariant | `durability.commit_survives_crash` | `doltgres.main` | `faults` |  |
-| ⬜ missing | invariant | `durability.commit_survives_crash` | `doltgres.release` | `faults` |  |
-| ⬜ missing | invariant | `durability.commit_survives_crash` | `postgres.reference` | `faults` |  |
-| ⬜ missing | invariant | `durability.no_partial_after_crash` | `doltgres.main` | `faults` |  |
-| ⬜ missing | invariant | `durability.no_partial_after_crash` | `doltgres.release` | `faults` |  |
-| ⬜ missing | invariant | `durability.no_partial_after_crash` | `postgres.reference` | `faults` |  |
+Nothing is failing, missing or unenforced.
 
 ## Features
 
@@ -42,8 +35,8 @@ What the system must never do, or must always do, for each subject it applies to
 
 | Invariant | Family | Levels | `doltgres.main` | `doltgres.release` | `postgres.reference` |
 | --- | --- | --- | --- | --- | --- |
-| [`durability.commit_survives_crash`](#inv-durability.commit_survives_crash) | durability | `faults` | ⬜ | ⬜ | ⬜ |
-| [`durability.no_partial_after_crash`](#inv-durability.no_partial_after_crash) | durability | `faults` | ⬜ | ⬜ | ⬜ |
+| [`durability.commit_survives_crash`](#inv-durability.commit_survives_crash) | durability | `faults` | ✅ | ✅ | ✅ |
+| [`durability.no_partial_after_crash`](#inv-durability.no_partial_after_crash) | durability | `faults` | ✅ | ✅ | ✅ |
 
 - <a id="inv-durability.commit_survives_crash"></a>**`durability.commit_survives_crash`** · durability — A committed transaction survives kill -9 and a restart.
 - <a id="inv-durability.no_partial_after_crash"></a>**`durability.no_partial_after_crash`** · durability — After a crash, no transaction is half applied, and every branch head is a valid commit.

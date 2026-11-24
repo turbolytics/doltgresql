@@ -27,7 +27,7 @@ catalog.reg_types: {conformance: not_required, concurrency: not_required, versio
 client.bind.binary: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 client.bind.typed: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 client.bind.untyped: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
-client.connect: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: missing, security: not_required, operations: not_required}
+client.connect: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: covered, compatibility: missing, security: not_required, operations: not_required}
 client.copy.from: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 client.copy.to: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 client.error.fields: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
@@ -41,7 +41,7 @@ import.roundtrip: {conformance: not_required, concurrency: not_required, version
 query.delete: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.delete.using: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.explain: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-query.insert: {conformance: missing, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+query.insert: {conformance: missing, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 query.insert.select: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.returning: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.select.aggregate: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
@@ -52,7 +52,7 @@ query.select.join: {conformance: missing, concurrency: not_required, versioning:
 query.select.set_ops: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.select.subquery: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.select.window: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-query.update: {conformance: missing, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+query.update: {conformance: missing, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 query.update.from: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.upsert.nothing: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.upsert.update: {conformance: missing, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
@@ -105,10 +105,10 @@ server.docker: {conformance: not_required, concurrency: not_required, versioning
 server.doltgres: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 server.gc: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: missing}
 server.metrics: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: missing}
-server.restart: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: missing}
+server.restart: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: missing}
 server.start: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: missing}
 txn.abort_on_error: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.commit: {conformance: missing, concurrency: missing, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+txn.commit: {conformance: missing, concurrency: missing, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 txn.isolation.set: {conformance: missing, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 txn.rollback: {conformance: missing, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 txn.row_lock: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}

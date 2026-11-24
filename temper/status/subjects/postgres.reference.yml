@@ -143,7 +143,7 @@ catalog.table/pg_user: {conformance: missing, concurrency: not_required, version
 catalog.table/pg_user_mapping: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 catalog.table/pg_user_mappings: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 catalog.table/pg_views: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-client.clear_failure: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+client.clear_failure: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 client.driver/ActiveRecord: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 "client.driver/DBD::Pg": {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 "client.driver/Drizzle ORM": {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
@@ -172,9 +172,9 @@ client.driver/psqlODBC: {conformance: not_required, concurrency: not_required, v
 client.driver/psycopg2: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 client.driver/sqlx: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 client.driver_standard_flow: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
-client.no_double_apply: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
-durability.commit_survives_crash: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
-durability.no_partial_after_crash: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+client.no_double_apply: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
+durability.commit_survives_crash: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
+durability.no_partial_after_crash: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 import.roundtrip_lossless: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: missing, security: not_required, operations: not_required}
 query.errors_match: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 query.matches_postgres: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
@@ -1464,8 +1464,8 @@ sql.type/xid: {conformance: missing, concurrency: not_required, versioning: not_
 sql.type/xml: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 "sql.type/xml[]": {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 sql.unsupported_fails_clean: {conformance: missing, concurrency: not_required, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-txn.atomic: {conformance: missing, concurrency: missing, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
-txn.bank_conserved: {conformance: not_required, concurrency: missing, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+txn.atomic: {conformance: missing, concurrency: missing, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
+txn.bank_conserved: {conformance: not_required, concurrency: missing, versioning: not_required, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 txn.constraints_under_race: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 "txn.isolation/read committed": {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 "txn.isolation/repeatable read": {conformance: not_required, concurrency: covered, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}

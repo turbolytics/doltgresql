@@ -116,6 +116,21 @@ out) reports violations, so the oracle can tell the two apart.
   every commit's AS OF and every sampled diff exact. The 5 versioning
   invariants and 11 operations are covered on both.
 
+**Durability: kill -9** (`durability.crash`, oracle
+`temper/recipe/oracle/durability.py`). Writers commit ledger inserts, bank
+transfers and (on Doltgres) a Dolt commit every second, recording every
+outcome, while the database is killed with SIGKILL every 6-12 s for 50 s and
+restarted. Afterwards every acknowledged insert is present exactly once, no
+failed statement left an effect, the bank total holds, every balance equals
+the opening balance replayed through the transfer log, every acknowledged Dolt
+commit is in the log and holds every insert acknowledged before it, and no
+operation hung. A negative control (one acknowledged row deleted, one balance
+shifted) is reported as a loss, a torn balance and a broken total.
+
+- All three subjects held through 5 kills each: about 15,000 inserts, 11,000
+  transfers and 56 Dolt commits per Doltgres subject, with 35 outcomes left
+  unknown by the crashes; nothing lost, duplicated, torn or hung.
+
 **Doltgres main** is built from this checkout by
 `temper/recipe/build_main.sh` (its binary reports 1.5.2, so the map
 identifies it by commit). It matches 1.5.3 on every check so far, including
@@ -134,4 +149,5 @@ With Temper v0.1.9 or later (the matrix splits into an index and group pages):
     temper run --level concurrency -- temper scenarios run --scenario txn.elle
     temper run --level concurrency -- temper scenarios run --scenario txn.elle_strict
     temper run --level versioning -- temper scenarios run --scenario vc.model
+    temper run --level faults -- temper scenarios run --scenario durability.crash
     temper matrix --all-levels

@@ -4,7 +4,7 @@
 
 **178 features and 47 invariants on 3 subjects, at levels `conformance`, `concurrency`, `versioning`, `faults`, `compatibility`, `security` and `operations`.**
 
-✅ 40 covered · ❌ 8 failing · ⬜ 4686 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 63 covered · ❌ 8 failing · ⬜ 4663 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -24,16 +24,16 @@ A group is the first segment of an id: `txn` holds every `txn.` feature, invaria
 | [`access`](temper/matrix/access.md) | 12 | 4 | 0 | 0 | 0 | 27 | 0 | 0 | 0 |
 | [`backup`](temper/matrix/backup.md) | 7 | 2 | 0 | 0 | 0 | 18 | 0 | 0 | 0 |
 | [`catalog`](temper/matrix/catalog.md) | 5 | 1 | 1 | 0 | 0 | 431 | 0 | 0 | 0 |
-| [`client`](temper/matrix/client.md) | 9 | 3 | 1 | 0 | 0 | 102 | 0 | 0 | 0 |
-| [`durability`](temper/matrix/durability.md) | 0 | 2 | 0 | 0 | 0 | 6 | 0 | 0 | 0 |
+| [`client`](temper/matrix/client.md) | 9 | 3 | 1 | 7 | 0 | 95 | 0 | 0 | 0 |
+| [`durability`](temper/matrix/durability.md) | 0 | 2 | 0 | 6 | 0 | 0 | 0 | 0 | 0 |
 | [`import`](temper/matrix/import.md) | 5 | 1 | 0 | 0 | 0 | 9 | 0 | 0 | 0 |
-| [`query`](temper/matrix/query.md) | 20 | 2 | 0 | 0 | 0 | 29 | 0 | 0 | 0 |
+| [`query`](temper/matrix/query.md) | 20 | 2 | 0 | 2 | 0 | 27 | 0 | 0 | 0 |
 | [`reference`](temper/matrix/reference.md) | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | [`replication`](temper/matrix/replication.md) | 8 | 2 | 0 | 0 | 0 | 22 | 0 | 0 | 0 |
 | [`schema`](temper/matrix/schema.md) | 30 | 5 | 0 | 0 | 0 | 57 | 0 | 0 | 0 |
-| [`server`](temper/matrix/server.md) | 10 | 2 | 0 | 0 | 0 | 23 | 0 | 0 | 0 |
+| [`server`](temper/matrix/server.md) | 10 | 2 | 0 | 1 | 0 | 22 | 0 | 0 | 0 |
 | [`sql`](temper/matrix/sql.md) | 0 | 1 | 3 | 0 | 0 | 3840 | 0 | 0 | 0 |
-| [`txn`](temper/matrix/txn.md) | 8 | 10 | 1 | 19 | 8 | 33 | 0 | 0 | 0 |
+| [`txn`](temper/matrix/txn.md) | 8 | 10 | 1 | 26 | 8 | 26 | 0 | 0 | 0 |
 | [`vc`](temper/matrix/vc.md) | 63 | 12 | 0 | 21 | 0 | 89 | 0 | 0 | 0 |
 
 ## Needs attention
