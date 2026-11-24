@@ -4,3 +4,4 @@ commands:
   elle: {doc: Elle's list-append test against the subject at every level; prints the verdict JSON, run: [oracle, python, elle_append.py]}
   vc_model: {doc: Dolt version control against a model of its docs; prints the verdict JSON, run: [oracle, python, vc_model.py]}
   durability: {doc: "writers, ledger and verdict for the crash scenarios: setup, write, writing, check", run: [oracle, python, durability.py]}
+  vc_crash: {doc: "version-control client and verdict across kill -9: run, running, check", run: [oracle, python, vc_crash.py]}

@@ -43,3 +43,40 @@
           decides: [durability.commit_survives_crash, durability.no_partial_after_crash, client.no_double_apply,
                     txn.bank_conserved, txn.atomic, client.clear_failure,
                     txn.commit, query.insert, query.update, server.restart, client.connect]
+
+- id: vc.crash
+  runner: temper
+  name: A crash during a version-control operation leaves the old state or the new, never a broken one
+  description: >
+    One client runs branch create and delete, checkout, writes, dolt_commit,
+    dolt_merge with conflicts resolved, dolt_cherry_pick and dolt_revert,
+    while the server is killed with SIGKILL every 4-8 s for 60 s. When an
+    operation's connection breaks, the client reconnects and decides it: the
+    branch head is the old one, a commit whose parents are exactly the old
+    head (plus the merged branch's head for a merge), or the merged head for
+    a fast-forward, and no merge is left in progress. Afterwards every commit
+    hash the server returned is in the history and reads AS OF it as it did
+    when returned, every branch head reads, every branch has its permission
+    row, and no branch whose creation never returned left one. The run fails
+    if no crash interrupted an operation or fewer than 5 merges ran.
+  compose: temper/compose.yml
+  subjects:
+    doltgres.release: {db_release: 1}
+    doltgres.main: {db_main: 1}
+  seed: 43
+  covers: [durability.no_partial_after_crash, vc.history_immutable, vc.branch_ops_atomic,
+           vc.commit, vc.merge.fast_forward, vc.cherry_pick, vc.revert, vc.branch.create]
+  events:
+    - up: {$subject: true}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 180s}
+    - hold: {name: client, vc_crash: [run, "{subject}", "75"]}
+    - sleep: 10s
+    - check: {covers: vc.history_immutable, vc_crash: [running]}   # still running, or the crashes test nothing
+    - chaos: {duration: 60s, every: 4s-8s, faults: [db.kill]}
+    - wait_until: {ready: ["{subject}"], equals: "1", timeout: 180s}
+    - wait_until: {vc_crash: [running], equals: "1", timeout: 5m}
+    - check:
+        results:
+          vc_crash: [check, "{subject}"]
+          decides: [durability.no_partial_after_crash, vc.history_immutable, vc.branch_ops_atomic,
+                    vc.commit, vc.merge.fast_forward, vc.cherry_pick, vc.revert, vc.branch.create]

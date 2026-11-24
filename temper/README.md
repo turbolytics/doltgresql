@@ -131,6 +131,23 @@ shifted) is reported as a loss, a torn balance and a broken total.
   transfers and 56 Dolt commits per Doltgres subject, with 35 outcomes left
   unknown by the crashes; nothing lost, duplicated, torn or hung.
 
+**Version control across kill -9** (`vc.crash`, oracle
+`temper/recipe/oracle/vc_crash.py`). One client runs branch create and
+delete, checkout, writes, dolt_commit, merges with conflicts resolved,
+cherry-picks and reverts while the server is killed every 4-8 s. An
+interrupted operation must leave the old head or a correctly parented new
+commit, with no merge left in progress; afterwards every returned commit
+reads AS OF its hash as it did when returned, every branch head reads, every
+branch has its permission row, and no failed creation left one.
+
+- Doltgres 1.5.3 and main pass: about 1,270 commits, 650 merges, 365 branch
+  creations and 7-8 interrupted operations each; nothing lost, changed or
+  half-done.
+- Two observations, not crash effects (a run with no crashes shows the
+  same): `dolt.commits` omits commits no branch reaches (about 150 per run),
+  though its docs say it "shows ALL commits"; and a deleted branch keeps its
+  `dolt_branch_control` row. The second belongs to the security family.
+
 **Doltgres main** is built from this checkout by
 `temper/recipe/build_main.sh` (its binary reports 1.5.2, so the map
 identifies it by commit). It matches 1.5.3 on every check so far, including
@@ -150,4 +167,5 @@ With Temper v0.1.9 or later (the matrix splits into an index and group pages):
     temper run --level concurrency -- temper scenarios run --scenario txn.elle_strict
     temper run --level versioning -- temper scenarios run --scenario vc.model
     temper run --level faults -- temper scenarios run --scenario durability.crash
+    temper run --level faults -- temper scenarios run --scenario vc.crash
     temper matrix --all-levels

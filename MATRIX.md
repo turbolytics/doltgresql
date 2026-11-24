@@ -4,7 +4,7 @@
 
 **178 features and 47 invariants on 3 subjects, at levels `conformance`, `concurrency`, `versioning`, `faults`, `compatibility`, `security` and `operations`.**
 
-✅ 63 covered · ❌ 8 failing · ⬜ 4663 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 72 covered · ❌ 8 failing · ⬜ 4654 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -34,7 +34,7 @@ A group is the first segment of an id: `txn` holds every `txn.` feature, invaria
 | [`server`](temper/matrix/server.md) | 10 | 2 | 0 | 1 | 0 | 22 | 0 | 0 | 0 |
 | [`sql`](temper/matrix/sql.md) | 0 | 1 | 3 | 0 | 0 | 3840 | 0 | 0 | 0 |
 | [`txn`](temper/matrix/txn.md) | 8 | 10 | 1 | 26 | 8 | 26 | 0 | 0 | 0 |
-| [`vc`](temper/matrix/vc.md) | 63 | 12 | 0 | 21 | 0 | 89 | 0 | 0 | 0 |
+| [`vc`](temper/matrix/vc.md) | 63 | 12 | 0 | 30 | 0 | 80 | 0 | 0 | 0 |
 
 ## Needs attention
 

@@ -1485,10 +1485,10 @@ txn.no_read_skew: {conformance: not_required, concurrency: failing, versioning: 
 txn.no_write_skew: {conformance: not_required, concurrency: failing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 txn.visible_after_commit: {conformance: not_required, concurrency: missing, versioning: not_required, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 vc.branch_isolated: {conformance: not_required, concurrency: missing, versioning: missing, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-vc.branch_ops_atomic: {conformance: not_required, concurrency: not_required, versioning: missing, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+vc.branch_ops_atomic: {conformance: not_required, concurrency: not_required, versioning: missing, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 vc.commit_atomic: {conformance: not_required, concurrency: missing, versioning: missing, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 vc.diff_complete: {conformance: not_required, concurrency: not_required, versioning: covered, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
-vc.history_immutable: {conformance: not_required, concurrency: not_required, versioning: covered, faults: missing, compatibility: not_required, security: not_required, operations: not_required}
+vc.history_immutable: {conformance: not_required, concurrency: not_required, versioning: covered, faults: covered, compatibility: not_required, security: not_required, operations: not_required}
 vc.merge_constraints: {conformance: not_required, concurrency: not_required, versioning: missing, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 vc.merge_no_silent_loss: {conformance: not_required, concurrency: not_required, versioning: covered, faults: not_required, compatibility: not_required, security: not_required, operations: not_required}
 vc.push_atomic: {conformance: not_required, concurrency: not_required, versioning: not_required, faults: missing, compatibility: not_required, security: not_required, operations: not_required}

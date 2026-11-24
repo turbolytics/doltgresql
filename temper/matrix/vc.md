@@ -6,7 +6,7 @@
 
 **63 features, 12 invariants and 0 lattices in group `vc`.**
 
-✅ 21 covered · ❌ 0 failing · ⬜ 89 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
+✅ 30 covered · ❌ 0 failing · ⬜ 80 missing · ☑️ 0 exempt · ⛔ 0 unsupported · ⏳ 0 unenforced
 
 Each cell is one claim in `temper/` at one level. It is covered when a test that ran
 at that level passed and none failed: a skip proves nothing, and a pass never hides
@@ -24,18 +24,15 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `vc.add` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.blame` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.branch.copy` |  | `versioning` |  |
-| ⬜ missing | feature | `vc.branch.create` |  | `faults` |  |
 | ⬜ missing | feature | `vc.branch.delete` |  | `faults` |  |
 | ⬜ missing | feature | `vc.branch.delete` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.branch.rename` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.branch.revision_db` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.branch.use` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.branches` |  | `versioning` |  |
-| ⬜ missing | feature | `vc.cherry_pick` |  | `faults` |  |
 | ⬜ missing | feature | `vc.clean` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.clone` |  | `faults` |  |
 | ⬜ missing | feature | `vc.clone` |  | `versioning` |  |
-| ⬜ missing | feature | `vc.commit` |  | `faults` |  |
 | ⬜ missing | feature | `vc.commit_diff_table` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.commits` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.constraint_violations` |  | `versioning` |  |
@@ -53,7 +50,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `vc.ignore` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.log` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.merge.abort` |  | `versioning` |  |
-| ⬜ missing | feature | `vc.merge.fast_forward` |  | `faults` |  |
 | ⬜ missing | feature | `vc.merge.no_ff` |  | `faults` |  |
 | ⬜ missing | feature | `vc.merge.no_ff` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.merge.squash` |  | `faults` |  |
@@ -75,7 +71,6 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | feature | `vc.remote.remove` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.remote_branches` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.reset.soft` |  | `versioning` |  |
-| ⬜ missing | feature | `vc.revert` |  | `faults` |  |
 | ⬜ missing | feature | `vc.rm` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.schema_conflicts` |  | `versioning` |  |
 | ⬜ missing | feature | `vc.schema_diff` |  | `versioning` |  |
@@ -89,16 +84,12 @@ a failure. Regenerate with `temper matrix`.
 | ⬜ missing | invariant | `vc.branch_isolated` | `doltgres.main` | `versioning` |  |
 | ⬜ missing | invariant | `vc.branch_isolated` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | invariant | `vc.branch_isolated` | `doltgres.release` | `versioning` |  |
-| ⬜ missing | invariant | `vc.branch_ops_atomic` | `doltgres.main` | `faults` |  |
 | ⬜ missing | invariant | `vc.branch_ops_atomic` | `doltgres.main` | `versioning` |  |
-| ⬜ missing | invariant | `vc.branch_ops_atomic` | `doltgres.release` | `faults` |  |
 | ⬜ missing | invariant | `vc.branch_ops_atomic` | `doltgres.release` | `versioning` |  |
 | ⬜ missing | invariant | `vc.commit_atomic` | `doltgres.main` | `concurrency` |  |
 | ⬜ missing | invariant | `vc.commit_atomic` | `doltgres.main` | `versioning` |  |
 | ⬜ missing | invariant | `vc.commit_atomic` | `doltgres.release` | `concurrency` |  |
 | ⬜ missing | invariant | `vc.commit_atomic` | `doltgres.release` | `versioning` |  |
-| ⬜ missing | invariant | `vc.history_immutable` | `doltgres.main` | `faults` |  |
-| ⬜ missing | invariant | `vc.history_immutable` | `doltgres.release` | `faults` |  |
 | ⬜ missing | invariant | `vc.merge_constraints` | `doltgres.main` | `versioning` |  |
 | ⬜ missing | invariant | `vc.merge_constraints` | `doltgres.release` | `versioning` |  |
 | ⬜ missing | invariant | `vc.push_atomic` | `doltgres.main` | `faults` |  |
@@ -118,7 +109,7 @@ What the system does. Each feature is proven at the levels it requires.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `vc.status` | dolt.status lists staged and unstaged changes. | — | — | ⬜ | — | — | — | — |
 | `vc.add` | dolt_add() stages tables. | — | — | ⬜ | — | — | — | — |
-| `vc.commit` | dolt_commit() records a commit, with -m, -a, --allow-empty and --author. | — | — | ✅ | ⬜ | — | — | — |
+| `vc.commit` | dolt_commit() records a commit, with -m, -a, --allow-empty and --author. | — | — | ✅ | ✅ | — | — | — |
 | `vc.reset.soft` | dolt_reset() unstages. | — | — | ⬜ | — | — | — | — |
 | `vc.reset.hard` | dolt_reset('--hard') returns the working set to HEAD. | — | — | ✅ | — | — | — | — |
 | `vc.clean` | dolt_clean() drops untracked tables. | — | — | ⬜ | — | — | — | — |
@@ -129,7 +120,7 @@ What the system does. Each feature is proven at the levels it requires.
 | `vc.log` | dolt.log and dolt_log() list commits. | — | — | ⬜ | — | — | — | — |
 | `vc.count_commits` | dolt_count_commits() counts commits between revisions. | — | — | ⬜ | — | — | — | — |
 | `vc.commits` | dolt.commits and dolt.commit_ancestors. | — | — | ⬜ | — | — | — | — |
-| `vc.branch.create` | dolt_branch() creates a branch. | — | — | ✅ | ⬜ | — | — | — |
+| `vc.branch.create` | dolt_branch() creates a branch. | — | — | ✅ | ✅ | — | — | — |
 | `vc.branch.copy` | dolt_branch('-c') copies a branch. | — | — | ⬜ | — | — | — | — |
 | `vc.branch.rename` | dolt_branch('-m') renames a branch. | — | — | ⬜ | — | — | — | — |
 | `vc.branch.delete` | dolt_branch('-d') deletes a branch, and -D forces it. | — | — | ⬜ | ⬜ | — | — | — |
@@ -138,7 +129,7 @@ What the system does. Each feature is proven at the levels it requires.
 | `vc.branch.revision_db` | db/branch and db@commit database names read a revision. | — | — | ⬜ | — | — | — | — |
 | `vc.branch.use` | USE db/branch switches the session's branch. | — | — | ⬜ | — | — | — | — |
 | `vc.branches` | dolt.branches lists branches. | — | — | ⬜ | — | — | — | — |
-| `vc.merge.fast_forward` | dolt_merge() fast-forwards when it can. | — | — | ✅ | ⬜ | — | — | — |
+| `vc.merge.fast_forward` | dolt_merge() fast-forwards when it can. | — | — | ✅ | ✅ | — | — | — |
 | `vc.merge.no_ff` | dolt_merge('--no-ff') always makes a merge commit. | — | — | ⬜ | ⬜ | — | — | — |
 | `vc.merge.squash` | dolt_merge('--squash') applies the changes without a merge commit. | — | — | ⬜ | ⬜ | — | — | — |
 | `vc.merge.abort` | dolt_merge('--abort') restores the state before the merge. | — | — | ⬜ | — | — | — | — |
@@ -149,8 +140,8 @@ What the system does. Each feature is proven at the levels it requires.
 | `vc.constraint_violations` | dolt.constraint_violations and dolt_constraint_violations_$table. | — | — | ⬜ | — | — | — | — |
 | `vc.verify_constraints` | dolt_verify_constraints() checks the constraints and records violations. | — | — | ⬜ | — | — | — | — |
 | `vc.preview_conflicts` | dolt_preview_merge_conflicts() and its summary preview a merge. | — | — | ⬜ | — | — | — | — |
-| `vc.cherry_pick` | dolt_cherry_pick() applies one commit's changes. | — | — | ✅ | ⬜ | — | — | — |
-| `vc.revert` | dolt_revert() undoes a commit's changes in a new commit. | — | — | ✅ | ⬜ | — | — | — |
+| `vc.cherry_pick` | dolt_cherry_pick() applies one commit's changes. | — | — | ✅ | ✅ | — | — | — |
+| `vc.revert` | dolt_revert() undoes a commit's changes in a new commit. | — | — | ✅ | ✅ | — | — | — |
 | `vc.rebase` | dolt_rebase() replays commits from a plan in dolt.rebase. | — | — | ⬜ | ⬜ | — | — | — |
 | `vc.as_of` | SELECT ... AS OF a branch, tag, commit or time. | — | — | ✅ | — | — | — | — |
 | `vc.history_table` | dolt_history_$table lists every version of every row. | — | — | ⬜ | — | — | — | — |
@@ -191,10 +182,10 @@ Where a row names several levels, each cell shows one mark per level, in that or
 | Invariant | Family | Levels | `doltgres.main` | `doltgres.release` | `postgres.reference` |
 | --- | --- | --- | --- | --- | --- |
 | [`vc.branch_isolated`](#inv-vc.branch_isolated) | versioning | `versioning`, `concurrency` | ⬜ ⬜ | ⬜ ⬜ | — |
-| [`vc.branch_ops_atomic`](#inv-vc.branch_ops_atomic) | versioning | `versioning`, `faults` | ⬜ ⬜ | ⬜ ⬜ | — |
+| [`vc.branch_ops_atomic`](#inv-vc.branch_ops_atomic) | versioning | `versioning`, `faults` | ⬜ ✅ | ⬜ ✅ | — |
 | [`vc.commit_atomic`](#inv-vc.commit_atomic) | versioning | `versioning`, `concurrency` | ⬜ ⬜ | ⬜ ⬜ | — |
 | [`vc.diff_complete`](#inv-vc.diff_complete) | versioning | `versioning` | ✅ | ✅ | — |
-| [`vc.history_immutable`](#inv-vc.history_immutable) | versioning | `versioning`, `faults` | ✅ ⬜ | ✅ ⬜ | — |
+| [`vc.history_immutable`](#inv-vc.history_immutable) | versioning | `versioning`, `faults` | ✅ ✅ | ✅ ✅ | — |
 | [`vc.merge_constraints`](#inv-vc.merge_constraints) | versioning | `versioning` | ⬜ | ⬜ | — |
 | [`vc.merge_no_silent_loss`](#inv-vc.merge_no_silent_loss) | versioning | `versioning` | ✅ | ✅ | — |
 | [`vc.push_atomic`](#inv-vc.push_atomic) | sharing | `faults` | ⬜ | ⬜ | — |
