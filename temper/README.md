@@ -104,5 +104,8 @@ Everything else is declared and not yet tested.
 
 ## Regenerating
 
+With Temper v0.1.9 or later (the matrix splits into an index and group pages):
+
     temper check
+    temper run --level concurrency -- temper scenarios run --build
     temper matrix --all-levels
